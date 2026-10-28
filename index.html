@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sahil Chhajed Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #f6f2ea;
+  --surface: #ffffff;
+  --line: #ded6c9;
+  --fg: #2a2523;
+  --muted: #6b635b;
+  --accent: #7a1f2e;
+  --accent-ink: #ffffff;
+  --beige: #e9dfcf;
+  --greige: #b9b1a5;
+  --glow: rgba(122,31,46,.08);
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.6 var(--font-body); overflow-x: hidden; }
+.gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1120px; margin: 0 auto; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; text-wrap: balance; }
+.label { font: 500 12px var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+#progress { position: fixed; inset: 0 0 auto 0; height: 3px; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); z-index: 20; }
+
+
+#bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+#bg svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+#bg .lyr { transform-box: fill-box; transform-origin: center; will-change: transform; }
+.kw { position: absolute; left: 0; white-space: nowrap; font: 800 clamp(120px, 20vw, 300px)/1 var(--font-display); letter-spacing: -.03em; color: transparent; -webkit-text-stroke: 1.5px rgba(185,177,165,.24); will-change: transform; }
+.kw1 { top: 12%; } .kw2 { top: 58%; }
+.hero-bg, .gutter, section.block, footer { position: relative; z-index: 1; }
+.k { display: inline-block; white-space: pre; }
+.js .k { opacity: 0; transform: translateY(70%) rotate(4deg); animation: kin .9s cubic-bezier(.2,.8,.2,1) forwards; animation-delay: calc(var(--i) * 45ms + 150ms); }
+@keyframes kin { to { opacity: 1; transform: none; } }
+
+/* Hero */
+.hero-bg { background: radial-gradient(900px 420px at 80% -10%, var(--glow), transparent 70%); }
+header.hero { padding-block: 88px 56px; display: grid; gap: 24px; }
+.hero h1 { font-size: clamp(46px, 9vw, 104px); font-weight: 800; line-height: 1; letter-spacing: -.03em; }
+.hero h1 span { color: var(--accent); }
+.hero .lede { max-width: 56ch; margin: 0; font-size: clamp(17px, 2vw, 20px); color: var(--muted); }
+.row { display: flex; flex-wrap: wrap; gap: 10px 12px; align-items: center; }
+.btn { display: inline-flex; align-items: center; min-height: 46px; padding: 0 22px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); font: 500 15px var(--font-body); text-decoration: none; cursor: pointer; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
+.btn:hover { border-color: var(--accent); }
+.email-text { font: 400 14px var(--font-mono); color: var(--muted); user-select: all; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
+.chips li { font: 400 12.5px var(--font-mono); padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--surface); }
+
+/* Numbers */
+.numbers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 14px; background: var(--surface); overflow: hidden; }
+.num { padding: 22px 18px; border-right: 1px solid var(--line); display: grid; gap: 6px; align-content: start; }
+.num:last-child { border-right: 0; }
+.num b { font: 800 clamp(30px, 4vw, 46px)/1 var(--font-display); color: var(--accent); font-variant-numeric: tabular-nums; }
+.num span { font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+
+section.block { padding-block: 96px 0; }
+.sec-head { display: grid; gap: 10px; margin-bottom: 36px; max-width: 60ch; }
+.sec-head h2 { font-size: clamp(32px, 5vw, 52px); font-weight: 800; letter-spacing: -.02em; line-height: 1.05; }
+.sec-head p { margin: 0; color: var(--muted); }
+
+/* Films */
+.films { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; }
+.films .reel { grid-column: span 3; }
+.films .reel:nth-child(-n+3) { grid-column: span 2; }
+.reel { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; transition: border-color .25s, transform .25s; }
+.reel:hover { border-color: var(--accent); transform: translateY(-3px); }
+.screen { position: relative; display: block; width: 100%; padding: 0; border: 0; background: #000; aspect-ratio: 16 / 9; cursor: pointer; }
+.screen video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.play { position: absolute; right: 14px; bottom: 14px; width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-size: 14px; pointer-events: none; transition: opacity .2s; }
+.screen.playing .play { opacity: 0; }
+.reel figcaption { padding: 14px 18px 16px; display: grid; gap: 2px; }
+.reel h3 { font-size: 19px; font-weight: 600; }
+.reel .cat { font: 400 12px var(--font-mono); color: var(--muted); }
+
+/* Websites */
+.sites { display: grid; gap: 28px; }
+.site { contain: layout paint; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 56px); align-items: center; padding: clamp(18px, 3vw, 32px); border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+.site:nth-child(even) { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.site:nth-child(even) .txt { order: 2; }
+.txt { display: grid; gap: 16px; will-change: transform, opacity; }
+.site h3 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -.02em; line-height: 1.05; }
+.site .name { font: 600 13px var(--font-mono); color: var(--accent); letter-spacing: .06em; text-transform: uppercase; }
+.site p { margin: 0; color: var(--muted); }
+.browser { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); will-change: transform; transform-origin: 50% 100%; backface-visibility: hidden; }
+.bar { display: flex; gap: 6px; padding: 10px 12px; background: var(--bg); border-bottom: 1px solid var(--line); }
+.bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); align-self: center; }
+.bar b { margin-left: 10px; flex: 1; max-width: 320px; font: 500 11.5px var(--font-mono); color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 3px 10px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vp { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--surface); }
+.vp img { display: block; width: 100%; height: auto; will-change: transform; backface-visibility: hidden; }
+
+/* Hackathon */
+.hack { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px 56px; align-items: center; }
+.photo { margin: 0; position: relative; overflow: hidden; border-radius: 16px; border: 1px solid var(--line); aspect-ratio: 3 / 4; background: var(--surface); }
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo figcaption { position: absolute; inset: auto 0 0 0; padding: 40px 16px 14px; font: 400 12px var(--font-mono); color: #fff; background: linear-gradient(to top, rgba(0,0,0,.75), transparent); }
+.hack h2 { font-size: clamp(40px, 6vw, 72px); font-weight: 800; letter-spacing: -.02em; line-height: 1; margin-top: 8px; }
+.hack .tagline { font: 400 14px var(--font-mono); color: var(--accent); margin: 10px 0 18px; }
+.hack ul { margin: 18px 0 0; padding-left: 20px; display: grid; gap: 12px; max-width: 56ch; color: var(--muted); }
+.hack li::marker { color: var(--accent); }
+.hack .facts { font: 400 13px var(--font-mono); color: var(--muted); }
+
+footer { padding-block: 96px 64px; display: grid; gap: 18px; }
+footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing: -.02em; line-height: 1; }
+
+/* Reveal */
+.js .rv { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+.js .rv.in { opacity: 1; transform: none; }
+
+@media (min-width: 861px) { .films .reel:nth-child(even) { transition-delay: .12s; } }
+@media (max-width: 860px) {
+  .numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .num { border-bottom: 1px solid var(--line); }
+  .films { grid-template-columns: minmax(0, 1fr); }
+  .films .reel, .films .reel:nth-child(-n+3) { grid-column: auto; }
+  .site, .site:nth-child(even) { grid-template-columns: minmax(0, 1fr); }
+  .site:nth-child(even) .txt { order: 0; }
+  .hack { grid-template-columns: minmax(0, 1fr); }
+  .photo { max-width: 460px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .k { opacity: 1; transform: none; animation: none; }
+  .js .rv { opacity: 1; transform: none; transition: none; }
+  .reel { transition: none; }
+}
+</style>
+
+<div id="progress"></div>
+<div id="bg" aria-hidden="true"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g class="lyr" data-d="0.5"><path fill="#e9dfcf" fill-opacity=".95" d="M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z"><animate attributeName="d" dur="22s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z;M1029 230 C1017 305 975 366 924 410 C872 454 779 507 720 494 C660 481 590 393 566 333 C542 273 552 194 577 132 C603 71 650 -6 720 -35 C789 -63 942 -82 994 -38 C1045 6 1040 155 1029 230Z;M1082 230 C1092 300 1041 426 978 479 C916 532 793 564 708 548 C622 531 504 456 468 380 C433 304 454 173 493 92 C533 11 633 -99 704 -105 C774 -110 854 2 917 58 C980 114 1072 160 1082 230Z;M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z"/></path></g><g class="lyr" data-d="0.9"><path fill="#b9b1a5" fill-opacity=".28" d="M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z"><animate attributeName="d" dur="28s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z;M490 760 C496 840 455 969 390 1024 C326 1079 179 1115 105 1090 C31 1065 -30 945 -54 872 C-77 800 -64 723 -36 656 C-8 590 50 492 114 473 C179 454 292 494 354 542 C417 590 484 680 490 760Z;M457 760 C465 838 452 972 393 1027 C334 1083 195 1111 104 1093 C13 1075 -123 994 -150 919 C-177 844 -104 715 -59 645 C-15 574 52 509 119 494 C186 480 286 512 342 557 C398 601 448 682 457 760Z;M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z"/></path></g><g class="lyr" data-d="1.4"><path fill="#7a1f2e" fill-opacity=".10" d="M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z"><animate attributeName="d" dur="19s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z;M932 820 C927 867 842 919 798 943 C754 966 719 966 667 963 C616 959 506 958 487 922 C469 887 525 792 555 750 C585 708 620 684 665 669 C711 654 783 635 827 661 C872 686 937 773 932 820Z;M929 820 C933 875 891 964 844 1001 C798 1038 696 1060 650 1040 C603 1021 585 937 563 886 C542 835 505 775 521 734 C537 693 609 652 659 642 C709 631 775 640 820 669 C865 699 925 765 929 820Z;M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z"/></path></g><g class="lyr" data-d="1.8"><path fill="#7a1f2e" fill-opacity=".07" d="M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z"><animate attributeName="d" dur="24s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z;M373 200 C374 231 360 275 337 296 C313 317 270 329 231 326 C193 322 123 305 107 274 C90 243 112 176 132 138 C152 100 192 51 225 46 C258 42 307 85 332 110 C356 136 373 169 373 200Z;M407 200 C405 242 385 292 355 319 C324 345 258 371 223 360 C189 350 162 293 145 255 C129 217 109 170 122 134 C135 97 182 46 222 35 C263 24 336 39 366 67 C397 94 409 158 407 200Z;M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z"/></path></g></svg><div class="kw kw1"><span>Brands &middot; Films &middot; Web &middot; Brands &middot; Films &middot; Web</span></div><div class="kw kw2"><span>Story &middot; Motion &middot; Growth &middot; Story &middot; Motion &middot; Growth</span></div></div>
+
+
+<div class="hero-bg gutter"><div class="wrap">
+  <header class="hero">
+    <span class="label">Portfolio &middot; Montpellier, France</span>
+    <h1 class="rv">Sahil<br><span>Chhajed</span></h1>
+    <p class="lede rv">Four years of B2B sales, recruiting and customer relations, now pointed at brands. I build websites and marketing films with AI tools, and I know how a go-to-market works because I have sold into one.</p>
+    <div class="row rv">
+      <a class="btn primary" href="https://linkedin.com/in/sahil-chhajed12" target="_blank" rel="noopener">LinkedIn</a>
+      <button class="btn" type="button" id="copy-email">Copy email</button>
+      <span class="email-text" id="email-text">sj163739@gmail.com</span>
+    </div>
+    <ul class="chips rv" aria-label="Tools"><li>Claude AI</li><li>Google AI Studio</li><li>Google Flow</li><li>Higgsfield</li><li>Canva</li><li>Figma</li></ul>
+  </header>
+</div></div>
+
+<div class="gutter"><div class="wrap">
+  <div class="numbers rv" aria-label="Highlights">
+    <div class="num"><b data-to="25" data-suffix="%+">25%+</b><span>conversion rate on EdTech sales calls</span></div>
+    <div class="num"><b data-to="50" data-suffix="+">50+</b><span>client accounts managed</span></div>
+    <div class="num"><b data-to="7">7</b><span>marketing films</span></div>
+    <div class="num"><b data-to="4">4</b><span>websites built</span></div>
+    <div class="num"><b data-to="6">6</b><span>D2C brands analysed for my thesis</span></div>
+  </div>
+</div></div>
+
+<section class="block gutter" id="films"><div class="wrap">
+  <div class="sec-head rv"><span class="label">Marketing</span><h2>Films</h2><p>Brand, product and event films made with AI video tools. Tap a frame to play or pause.</p></div>
+  <div class="films">
+    <figure class="reel rv"><button class="screen" type="button" aria-label="Play NOCTA ad"><video muted loop playsinline preload="none" poster="v/nocta.jpg"><source src="v/nocta.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>NOCTA, &ldquo;Break It in Two&rdquo;</h3><span class="cat">Dark chocolate for Gen Z &middot; 15s ad</span></figcaption></figure>
+    <figure class="reel rv"><button class="screen" type="button" aria-label="Play Shanghai Beer Festival film"><video muted loop playsinline preload="none" poster="v/shanghai.jpg"><source src="v/shanghai.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>Shanghai Beer Festival</h3><span class="cat">Automobile exhibition &middot; event film</span></figcaption></figure>
+    <figure class="reel rv"><button class="screen" type="button" aria-label="Play Gercheese ad"><video muted loop playsinline preload="none" poster="v/cheese.jpg"><source src="v/cheese.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>Gercheese</h3><span class="cat">Plant-based Dutch cheese &middot; brand ad</span></figcaption></figure>
+    <figure class="reel rv"><button class="screen" type="button" aria-label="Play Mamaearth film"><video muted loop playsinline preload="none" poster="v/mamaearth.jpg"><source src="v/mamaearth.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>Mamaearth</h3><span class="cat">Natural skincare &middot; product film</span></figcaption></figure>
+    <figure class="reel rv"><button class="screen" type="button" aria-label="Play WOW Skin Science film"><video muted loop playsinline preload="none" poster="v/wow.jpg"><source src="v/wow.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>WOW Skin Science</h3><span class="cat">Skincare &middot; product film</span></figcaption></figure>
+    <figure class="reel rv"><button class="screen" type="button" aria-label="Play Skincare serums film"><video muted loop playsinline preload="none" poster="v/serums.jpg"><source src="v/serums.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>Serums</h3><span class="cat">Skincare &middot; product film</span></figcaption></figure>
+    <figure class="reel rv"><button class="screen" type="button" aria-label="Play The Souled Store film"><video muted loop playsinline preload="none" poster="v/souled.jpg"><source src="v/souled.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>The Souled Store</h3><span class="cat">Apparel &middot; lifestyle film</span></figcaption></figure>
+  </div>
+</div></section>
+
+<section class="block gutter" id="websites"><div class="wrap">
+  <div class="sec-head rv"><span class="label">Web</span><h2>Websites</h2><p>Four sites. Each page pans through its real design as you scroll.</p></div>
+  <div class="sites">
+    <article class="site"><div class="txt"><span class="name">EngageAd</span><h3>Where ads become entertainment.</h3><p>Pitch site for a shoppable short-video platform, with a 3D shape field, scroll-driven hero and animated counters.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>EngageAd</b></div><div class="vp"><img src="p/engagead.jpg" width="1280" height="6199" alt="Full-page view of the EngageAd website" loading="lazy"></div></div></article>
+    <article class="site"><div class="txt"><span class="name">PSYWEAR</span><h3>Enter the Psyverse.</h3><p>Neon streetwear brand site with an animated hero, a product spotlight, a drop grid and a cart.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>PSYWEAR</b></div><div class="vp"><img src="p/psywear.jpg" width="1280" height="4829" alt="Full-page view of the PSYWEAR website" loading="lazy"></div></div></article>
+    <article class="site"><div class="txt"><span class="name">DineVista</span><h3>Discover. Book. Experience.</h3><p>Discovery site for restaurants and boutique hotels, with a guest side and a venue side.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>DineVista</b></div><div class="vp"><img src="p/dinevista.jpg" width="1280" height="5002" alt="Full-page view of the DineVista website" loading="lazy"></div></div></article>
+    <article class="site"><div class="txt"><span class="name">Aaradhya Acrylic Rangolis</span><h3>Handcrafted with a mother’s love.</h3><p>Online store for a family-run maker of handmade acrylic rangolis, with collections, custom orders and a WhatsApp enquiry flow.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>Aaradhya Acrylic Rangolis</b></div><div class="vp"><img src="p/aaradhya.jpg" width="1280" height="6400" alt="Full-page view of the Aaradhya Acrylic Rangolis website" loading="lazy"></div></div></article>
+  </div>
+</div></section>
+
+<section class="block gutter" id="hackathon"><div class="wrap">
+  <div class="hack rv">
+    <figure class="photo"><img src="img/watowear.jpg" alt="Sahil presenting the WATOWEAR pitch next to a screen showing the brand and the India market slide" width="1000" height="1333" loading="lazy"><figcaption>Pitching WATOWEAR to the jury, Sophia Antipolis, March 2026</figcaption></figure>
+    <div>
+      <span class="label">Hackathon</span>
+      <h2>WATOWEAR</h2>
+      <p class="tagline">one closet, endless you</p>
+      <div class="facts">Sustainable fashion e-commerce &middot; Sophia Antipolis, France &middot; March 2026</div>
+      <ul>
+        <li>Built the go-to-market strategy for a sustainable fashion platform aimed at India: competitive landscape, customer segmentation, positioning and pricing.</li>
+        <li>Pitched it in three moves to a panel of industry judges: the market opportunity, the gap in how people use their wardrobes, and a hybrid styling solution.</li>
+        <li>Ran primary and secondary research on consumer trends to back the position.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<footer class="gutter"><div class="wrap">
+  <h2 class="rv">Let&rsquo;s talk.</h2>
+  <div class="row rv" style="margin-top:18px">
+    <a class="btn primary" href="https://linkedin.com/in/sahil-chhajed12" target="_blank" rel="noopener">linkedin.com/in/sahil-chhajed12</a>
+    <span class="email-text">sj163739@gmail.com</span>
+  </div>
+</div></footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  var hasIO = 'IntersectionObserver' in window;
+  if (hasIO && !reduce) root.classList.add('js');
+
+
+  /* kinetic name */
+  document.querySelectorAll('.hero h1').forEach(function (el) {
+    if (reduce) return; var i = 0;
+    (function walk(n) { [].slice.call(n.childNodes).forEach(function (c) {
+      if (c.nodeType === 3) { var f = document.createDocumentFragment(); c.textContent.split('').forEach(function (ch) { var s = document.createElement('span'); s.className = 'k'; s.style.setProperty('--i', i++); s.textContent = ch; f.appendChild(s); }); n.replaceChild(f, c); }
+      else if (c.nodeType === 1 && c.tagName !== 'BR') walk(c); }); })(el);
+  });
+  /* camera move on the background layers */
+  var lyr = [].slice.call(document.querySelectorAll('#bg .lyr')), kw1 = document.querySelector('.kw1'), kw2 = document.querySelector('.kw2');
+  function camera() {
+    if (reduce) return;
+    var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight), p = Math.min(1, (window.scrollY || 0) / max);
+    lyr.forEach(function (g) { var d = +g.dataset.d;
+      g.style.transform = 'translate3d(' + (Math.sin(p * 3.1) * 60 * d).toFixed(1) + 'px,' + (-p * 260 * d).toFixed(1) + 'px,0) rotate(' + (p * 40 * d).toFixed(1) + 'deg) scale(' + (1 + p * 0.35 * d).toFixed(3) + ')'; });
+    kw1.style.transform = 'translate3d(' + (-p * 55).toFixed(1) + '%,0,0)';
+    kw2.style.transform = 'translate3d(' + (-55 + p * 55).toFixed(1) + '%,0,0)';
+  }
+  var bar = document.getElementById('progress');
+  function onScroll() {
+    var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    bar.style.transform = 'scaleX(' + Math.min(1, (window.scrollY || 0) / max) + ')';
+  }
+
+  /* scroll-linked entrance for each website card: frame tilts up and settles, text slides in */
+  var cards = [].slice.call(document.querySelectorAll('.site'));
+  function animateCards() {
+    if (reduce) return;
+    var vh = window.innerHeight;
+    cards.forEach(function (c, i) {
+      var r = c.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > vh + 100) return;
+      var p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.75)));
+      var e = 1 - Math.pow(1 - p, 3);
+      var dir = i % 2 ? 1 : -1;
+      var fr = c.querySelector('.browser'), tx = c.querySelector('.txt');
+      fr.style.transform = 'perspective(1100px) rotateX(' + ((1 - e) * 12).toFixed(2) + 'deg) translateY(' + ((1 - e) * 50).toFixed(1) + 'px) scale(' + (0.9 + 0.1 * e).toFixed(3) + ')';
+      tx.style.transform = 'translateX(' + (dir * (1 - e) * 48).toFixed(1) + 'px)';
+      tx.style.opacity = (0.15 + 0.85 * e).toFixed(2);
+      var vp = c.querySelector('.vp'), im = vp.firstElementChild;
+      var span = Math.max(0, im.offsetHeight - vp.clientHeight);
+      var q = Math.min(1, Math.max(0, (vh * 0.9 - r.top) / (vh * 0.9 + r.height * 0.7)));
+      im.style.transform = 'translate3d(0,' + (-(q * span)).toFixed(1) + 'px,0)';
+    });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; onScroll(); animateCards(); camera(); }); } }, { passive: true });
+  onScroll(); animateCards(); camera(); window.addEventListener('resize', function(){ animateCards(); camera(); });
+
+  if (hasIO && !reduce) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
+
+    var vo = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target, b = v.closest('.screen');
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); if (b) b.classList.add('playing'); }
+        else { v.pause(); if (b) b.classList.remove('playing'); }
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('.reel video').forEach(function (v) { vo.observe(v); });
+
+    var nio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return; nio.unobserve(e.target);
+        var el = e.target, to = +el.dataset.to, suf = el.dataset.suffix || '', t0 = null;
+        (function step(ts) { if (t0 === null) t0 = ts; var k = Math.min(1, (ts - t0) / 1000);
+          el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))) + (k < 1 ? '' : suf);
+          if (k < 1) requestAnimationFrame(step); })(performance.now());
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('.num b').forEach(function (n) { nio.observe(n); });
+  }
+
+  document.querySelectorAll('.screen').forEach(function (b) {
+    var v = b.querySelector('video');
+    b.addEventListener('click', function () {
+      if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); b.classList.add('playing'); }
+      else { v.pause(); b.classList.remove('playing'); }
+    });
+  });
+
+  var copy = document.getElementById('copy-email'), text = document.getElementById('email-text');
+  copy.addEventListener('click', function () {
+    var done = function () { copy.textContent = 'Copied'; setTimeout(function () { copy.textContent = 'Copy email'; }, 1800); };
+    var fb = function () { var r = document.createRange(); r.selectNodeContents(text); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text.textContent).then(done, fb); else fb();
+  });
+})();
+</script>
+
+</html>
