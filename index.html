@@ -69,6 +69,41 @@ section.block { padding-block: 96px 0; }
 .sec-head h2 { font-size: clamp(32px, 5vw, 52px); font-weight: 800; letter-spacing: -.02em; line-height: 1.05; }
 .sec-head p { margin: 0; color: var(--muted); }
 
+/* About + story */
+.about { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.portrait { margin: 0; position: relative; }
+.portrait img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; display: block; border-radius: 22px; border: 1px solid var(--line); }
+.portrait::after { content: ""; position: absolute; inset: 14px -14px -14px 14px; border: 1px solid var(--accent); border-radius: 22px; z-index: -1; opacity: .5; }
+.about h2 { font-size: clamp(34px, 5.4vw, 60px); font-weight: 800; letter-spacing: -.02em; line-height: 1.04; margin: 10px 0 20px; }
+.about h2 em { font-style: normal; color: var(--accent); }
+.about p { margin: 0 0 14px; max-width: 58ch; color: var(--muted); font-size: 17px; }
+.about p strong { color: var(--fg); font-weight: 700; }
+.traits { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 44px; }
+.trait { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 20px; display: grid; gap: 8px; align-content: start; transition: border-color .25s, transform .25s; }
+.trait:hover { border-color: var(--accent); transform: translateY(-3px); }
+.trait .no { font: 500 12px var(--font-mono); color: var(--accent); }
+.trait h3 { font-size: 21px; font-weight: 800; letter-spacing: -.01em; }
+.trait p { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.55; }
+.path { list-style: none; margin: 0; padding: 0; position: relative; display: grid; gap: 0; }
+.path::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--line); }
+.step { position: relative; display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 8px 28px; padding: 0 0 30px 38px; }
+.step::before { content: ""; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+.step.now::before { background: var(--accent); box-shadow: 0 0 0 6px var(--glow); }
+.step time { font: 500 13px var(--font-mono); color: var(--accent); padding-top: 3px; }
+.step h3 { font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
+.step .co { font: 400 13px var(--font-mono); color: var(--muted); margin-top: 2px; }
+.step p { margin: 8px 0 0; color: var(--muted); max-width: 62ch; }
+.think { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 56px); align-items: start; padding: clamp(22px, 4vw, 44px); background: var(--surface); border: 1px solid var(--line); border-radius: 20px; }
+.think h2 { font-size: clamp(30px, 4.4vw, 48px); font-weight: 800; letter-spacing: -.02em; line-height: 1.05; margin: 10px 0 14px; }
+.think > div > p { margin: 0; color: var(--muted); }
+.qs { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: q; }
+.qs li { counter-increment: q; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 4px 14px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); }
+.qs li::before { content: counter(q); grid-row: span 2; width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font: 800 16px var(--font-display); }
+.qs b { font: 800 18px var(--font-display); }
+.qs span { color: var(--muted); font-size: 14.5px; }
+.seek { display: grid; gap: 12px; max-width: 62ch; }
+.seek p { margin: 0; color: var(--muted); font-size: 17px; }
+
 /* Films */
 .films { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; }
 .films .reel { grid-column: span 3; }
@@ -119,6 +154,10 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
 
 @media (min-width: 861px) { .films .reel:nth-child(even) { transition-delay: .12s; } }
 @media (max-width: 860px) {
+  .about, .think { grid-template-columns: minmax(0, 1fr); }
+  .portrait { max-width: 360px; }
+  .traits { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .step { grid-template-columns: minmax(0, 1fr); padding-left: 34px; }
   .numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .num { border-bottom: 1px solid var(--line); }
   .films { grid-template-columns: minmax(0, 1fr); }
@@ -128,7 +167,9 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
   .hack { grid-template-columns: minmax(0, 1fr); }
   .photo { max-width: 460px; }
 }
+@media (max-width: 520px) { .traits { grid-template-columns: minmax(0, 1fr); } }
 @media (prefers-reduced-motion: reduce) {
+  .trait { transition: none; }
   .js .k { opacity: 1; transform: none; animation: none; }
   .js .rv { opacity: 1; transform: none; transition: none; }
   .reel { transition: none; }
@@ -143,7 +184,7 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
   <header class="hero">
     <span class="label">Portfolio &middot; Montpellier, France</span>
     <h1 class="rv">Sahil<br><span>Chhajed</span></h1>
-    <p class="lede rv">Four years of B2B sales, recruiting and customer relations, now pointed at brands. I build websites and marketing films with AI tools, and I know how a go-to-market works because I have sold into one.</p>
+    <p class="lede rv">I'm a commercial person who learned to build. Four years of selling, recruiting and running accounts in India, now in France studying how Indian brands go global, and making the websites and films to show how I would launch one.</p>
     <div class="row rv">
       <a class="btn primary" href="https://linkedin.com/in/sahil-chhajed12" target="_blank" rel="noopener">LinkedIn</a>
       <button class="btn" type="button" id="copy-email">Copy email</button>
@@ -162,6 +203,52 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
     <div class="num"><b data-to="6">6</b><span>D2C brands analysed for my thesis</span></div>
   </div>
 </div></div>
+
+<section class="block gutter" id="about"><div class="wrap">
+  <div class="about">
+    <figure class="portrait rv"><img src="img/sahil.jpg" width="720" height="720" alt="Portrait of Sahil Chhajed smiling" loading="lazy"></figure>
+    <div class="rv">
+      <span class="label">About</span>
+      <h2>I learned business from the <em>other side of the counter.</em></h2>
+      <p>My first job was behind a bar, running the till, the stock and the floor. After that I spent a year selling EdTech by phone, 40 to 50 calls a day, and then four years recruiting and running client pipelines.</p>
+      <p><strong>Every one of those jobs taught me the same thing:</strong> people say yes when they feel understood. Listen first, then make the offer fit.</p>
+      <p>Today I study international business in Montpellier, research how Indian brands win abroad, and build the websites and films that tell a brand&rsquo;s story. I want to bring all three sides to one team.</p>
+    </div>
+  </div>
+  <div class="traits">
+    <div class="trait rv"><span class="no">01</span><h3>Builder</h3><p>I don&rsquo;t just pitch ideas, I ship them. Four websites and seven films, made with AI tools.</p></div>
+    <div class="trait rv"><span class="no">02</span><h3>High standards</h3><p>&ldquo;Good enough&rdquo; isn&rsquo;t good enough. I will rebuild a scroll animation until it stops stuttering.</p></div>
+    <div class="trait rv"><span class="no">03</span><h3>Reads people</h3><p>Bar, phone and recruiting work taught me to hear the objection behind the question.</p></div>
+    <div class="trait rv"><span class="no">04</span><h3>Between two worlds</h3><p>Indian by background, studying in France. Native in Hindi and Marathi, fluent in English, French improving.</p></div>
+  </div>
+</div></section>
+
+<section class="block gutter" id="path"><div class="wrap">
+  <div class="sec-head rv"><span class="label">Career</span><h2>The path so far</h2><p>Four industries, one thread: understand the customer, then close.</p></div>
+  <ol class="path">
+    <li class="step rv"><time>2019</time><div><h3>Bartender &amp; Assistant Manager</h3><div class="co">Lazzez by Enter the Dragon &middot; India</div><p>High-volume venue. Served and advised guests, then ran the day: cash, stock, suppliers and floor staff.</p></div></li>
+    <li class="step rv"><time>2020 &ndash; 2021</time><div><h3>Customer Relations Officer</h3><div class="co">Virgo BPO Services &middot; EdTech sales for Cuemath, Vedantu, Lido Learning</div><p>40 to 50 consultative calls a day, converting 25%+, with 50+ student accounts to retain and upsell.</p></div></li>
+    <li class="step rv"><time>2021 &ndash; 2023</time><div><h3>Senior Recruiter</h3><div class="co">Ztek Consulting Inc. &middot; India</div><p>Screened 50+ candidates a week, negotiated offers and closed 15+ placements for clients.</p></div></li>
+    <li class="step rv"><time>2023 &ndash; 2024</time><div><h3>Recruitment Coordinator</h3><div class="co">Ztek Consulting Inc. &middot; India</div><p>Owned the post-offer pipeline for 20+ candidates a month and cut drop-off between offer and start date.</p></div></li>
+    <li class="step rv"><time>2025</time><div><h3>Commercial Support Officer</h3><div class="co">Alphatech Systems &middot; India</div><p>Ran the CRM pipeline for 10+ accounts, built proposals and cut pipeline reporting time by about 20%.</p></div></li>
+    <li class="step now rv"><time>2025 &ndash; today</time><div><h3>MSc International Business</h3><div class="co">MBS Business School &middot; Montpellier, France</div><p>Researching how six Indian D2C brands expand abroad. Pitched a go-to-market at the WATOWEAR hackathon. Now building the work below.</p></div></li>
+  </ol>
+</div></section>
+
+<section class="block gutter" id="think"><div class="wrap">
+  <div class="think rv">
+    <div>
+      <span class="label">How I think</span>
+      <h2>Does this brand belong there?</h2>
+      <p>From my thesis on Indian D2C brands going global, I built the Cultural Necessity Test: three questions I ask before any market entry. Keep the identity global, adapt the execution locally.</p>
+    </div>
+    <ol class="qs">
+      <li><b>Market necessity</b><span>Does anyone in this market actually need the product?</span></li>
+      <li><b>Cultural resonance</b><span>Will it mean something to them, not just look familiar?</span></li>
+      <li><b>Execution fit</b><span>Can we deliver it the way local customers expect?</span></li>
+    </ol>
+  </div>
+</div></section>
 
 <section class="block gutter" id="films"><div class="wrap">
   <div class="sec-head rv"><span class="label">Marketing</span><h2>Films</h2><p>Brand, product and event films made with AI video tools. Tap a frame to play or pause.</p></div>
@@ -204,8 +291,10 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
 </div></section>
 
 <footer class="gutter"><div class="wrap">
+  <span class="label rv">What&rsquo;s next</span>
   <h2 class="rv">Let&rsquo;s talk.</h2>
-  <div class="row rv" style="margin-top:18px">
+  <div class="seek rv"><p>I&rsquo;m looking for business development and marketing roles, internship or full-time, in France. Best fit: B2B SaaS, export-driven companies, or recruitment firms that sell across borders. I work in English today and my French is improving.</p></div>
+  <div class="row rv" style="margin-top:10px">
     <a class="btn primary" href="https://linkedin.com/in/sahil-chhajed12" target="_blank" rel="noopener">linkedin.com/in/sahil-chhajed12</a>
     <span class="email-text">sj163739@gmail.com</span>
   </div>
