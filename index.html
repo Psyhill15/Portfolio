@@ -17,6 +17,9 @@
   --beige: #e9dfcf;
   --greige: #b9b1a5;
   --glow: rgba(122,31,46,.08);
+  --green: #3f6b57;
+  --sage: #a9bfaa;
+  --green-glow: rgba(63,107,87,.14);
   --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --font-body: "DM Sans", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
@@ -64,6 +67,14 @@ header.hero { padding-block: 88px 56px; display: grid; gap: 24px; }
 .num b { font: 800 clamp(30px, 4vw, 46px)/1 var(--font-display); color: var(--accent); font-variant-numeric: tabular-nums; }
 .num span { font-size: 13.5px; color: var(--muted); line-height: 1.4; }
 
+.triad { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 4vw, 56px); padding-top: 28px; border-top: 2px solid var(--fg); }
+.triad div { display: grid; gap: 10px; align-content: start; }
+.triad b { font: 800 clamp(34px, 5.6vw, 68px)/1 var(--font-display); letter-spacing: -.03em; color: var(--fg); }
+.triad div:nth-child(2) b { color: var(--accent); }
+.triad div:last-child b { color: var(--green); }
+.triad div { border-top: 0; }
+.triad span { color: var(--muted); font-size: 15.5px; max-width: 34ch; }
+
 section.block { padding-block: 96px 0; }
 .sec-head { display: grid; gap: 10px; margin-bottom: 36px; max-width: 60ch; }
 .sec-head h2 { font-size: clamp(32px, 5vw, 52px); font-weight: 800; letter-spacing: -.02em; line-height: 1.05; }
@@ -73,14 +84,21 @@ section.block { padding-block: 96px 0; }
 .about { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
 .portrait { margin: 0; position: relative; }
 .portrait img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; display: block; border-radius: 22px; border: 1px solid var(--line); }
-.portrait::after { content: ""; position: absolute; inset: 14px -14px -14px 14px; border: 1px solid var(--accent); border-radius: 22px; z-index: -1; opacity: .5; }
+.portrait::after { content: ""; position: absolute; inset: 14px -14px -14px 14px; border: 1px solid var(--green); border-radius: 22px; z-index: -1; opacity: .5; }
 .about h2 { font-size: clamp(34px, 5.4vw, 60px); font-weight: 800; letter-spacing: -.02em; line-height: 1.04; margin: 10px 0 20px; }
 .about h2 em { font-style: normal; color: var(--accent); }
+#think .label, #path .label { color: var(--green); }
 .about p { margin: 0 0 14px; max-width: 58ch; color: var(--muted); font-size: 17px; }
 .about p strong { color: var(--fg); font-weight: 700; }
 .traits { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 44px; }
 .trait { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 20px; display: grid; gap: 8px; align-content: start; transition: border-color .25s, transform .25s; }
-.trait:hover { border-color: var(--accent); transform: translateY(-3px); }
+.trait { border-top: 4px solid var(--c, var(--accent)); }
+.trait:nth-child(1) { --c: var(--accent); }
+.trait:nth-child(2) { --c: var(--green); }
+.trait:nth-child(3) { --c: var(--greige); }
+.trait:nth-child(4) { --c: #cdbb98; }
+.trait:nth-child(2) .no { color: var(--green); }
+.trait:hover { border-color: var(--c); transform: translateY(-3px); }
 .trait .no { font: 500 12px var(--font-mono); color: var(--accent); }
 .trait h3 { font-size: 21px; font-weight: 800; letter-spacing: -.01em; }
 .trait p { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.55; }
@@ -88,7 +106,8 @@ section.block { padding-block: 96px 0; }
 .path::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--line); }
 .step { position: relative; display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 8px 28px; padding: 0 0 30px 38px; }
 .step::before { content: ""; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
-.step.now::before { background: var(--accent); box-shadow: 0 0 0 6px var(--glow); }
+.step.now::before { background: var(--green); border-color: var(--green); box-shadow: 0 0 0 6px var(--green-glow); }
+.step.now time { color: var(--green); }
 .step time { font: 500 13px var(--font-mono); color: var(--accent); padding-top: 3px; }
 .step h3 { font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
 .step .co { font: 400 13px var(--font-mono); color: var(--muted); margin-top: 2px; }
@@ -99,6 +118,8 @@ section.block { padding-block: 96px 0; }
 .qs { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: q; }
 .qs li { counter-increment: q; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 4px 14px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); }
 .qs li::before { content: counter(q); grid-row: span 2; width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font: 800 16px var(--font-display); }
+.qs li:nth-child(2)::before { background: var(--green); }
+.qs li:nth-child(3)::before { background: var(--greige); }
 .qs b { font: 800 18px var(--font-display); }
 .qs span { color: var(--muted); font-size: 14.5px; }
 .seek { display: grid; gap: 12px; max-width: 62ch; }
@@ -127,6 +148,7 @@ section.block { padding-block: 96px 0; }
 .site h3 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -.02em; line-height: 1.05; }
 .site .name { font: 600 13px var(--font-mono); color: var(--accent); letter-spacing: .06em; text-transform: uppercase; }
 .site p { margin: 0; color: var(--muted); }
+.site:nth-child(even) .name { color: var(--green); }
 .browser { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); will-change: transform; transform-origin: 50% 100%; backface-visibility: hidden; }
 .bar { display: flex; gap: 6px; padding: 10px 12px; background: var(--bg); border-bottom: 1px solid var(--line); }
 .bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); align-self: center; }
@@ -140,12 +162,13 @@ section.block { padding-block: 96px 0; }
 .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .photo figcaption { position: absolute; inset: auto 0 0 0; padding: 40px 16px 14px; font: 400 12px var(--font-mono); color: #fff; background: linear-gradient(to top, rgba(0,0,0,.75), transparent); }
 .hack h2 { font-size: clamp(40px, 6vw, 72px); font-weight: 800; letter-spacing: -.02em; line-height: 1; margin-top: 8px; }
-.hack .tagline { font: 400 14px var(--font-mono); color: var(--accent); margin: 10px 0 18px; }
+.hack .tagline { font: 400 14px var(--font-mono); color: var(--green); margin: 10px 0 18px; }
 .hack ul { margin: 18px 0 0; padding-left: 20px; display: grid; gap: 12px; max-width: 56ch; color: var(--muted); }
-.hack li::marker { color: var(--accent); }
+.hack li::marker { color: var(--green); }
 .hack .facts { font: 400 13px var(--font-mono); color: var(--muted); }
 
 footer { padding-block: 96px 64px; display: grid; gap: 18px; }
+footer .wrap { width: 100%; display: grid; gap: 14px; }
 footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing: -.02em; line-height: 1; }
 
 /* Reveal */
@@ -158,6 +181,7 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
   .portrait { max-width: 360px; }
   .traits { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .step { grid-template-columns: minmax(0, 1fr); padding-left: 34px; }
+  .triad { grid-template-columns: minmax(0, 1fr); }
   .numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .num { border-bottom: 1px solid var(--line); }
   .films { grid-template-columns: minmax(0, 1fr); }
@@ -177,14 +201,14 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
 </style>
 
 <div id="progress"></div>
-<div id="bg" aria-hidden="true"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g class="lyr" data-d="0.5"><path fill="#e9dfcf" fill-opacity=".95" d="M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z"><animate attributeName="d" dur="22s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z;M1029 230 C1017 305 975 366 924 410 C872 454 779 507 720 494 C660 481 590 393 566 333 C542 273 552 194 577 132 C603 71 650 -6 720 -35 C789 -63 942 -82 994 -38 C1045 6 1040 155 1029 230Z;M1082 230 C1092 300 1041 426 978 479 C916 532 793 564 708 548 C622 531 504 456 468 380 C433 304 454 173 493 92 C533 11 633 -99 704 -105 C774 -110 854 2 917 58 C980 114 1072 160 1082 230Z;M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z"/></path></g><g class="lyr" data-d="0.9"><path fill="#b9b1a5" fill-opacity=".28" d="M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z"><animate attributeName="d" dur="28s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z;M490 760 C496 840 455 969 390 1024 C326 1079 179 1115 105 1090 C31 1065 -30 945 -54 872 C-77 800 -64 723 -36 656 C-8 590 50 492 114 473 C179 454 292 494 354 542 C417 590 484 680 490 760Z;M457 760 C465 838 452 972 393 1027 C334 1083 195 1111 104 1093 C13 1075 -123 994 -150 919 C-177 844 -104 715 -59 645 C-15 574 52 509 119 494 C186 480 286 512 342 557 C398 601 448 682 457 760Z;M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z"/></path></g><g class="lyr" data-d="1.4"><path fill="#7a1f2e" fill-opacity=".10" d="M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z"><animate attributeName="d" dur="19s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z;M932 820 C927 867 842 919 798 943 C754 966 719 966 667 963 C616 959 506 958 487 922 C469 887 525 792 555 750 C585 708 620 684 665 669 C711 654 783 635 827 661 C872 686 937 773 932 820Z;M929 820 C933 875 891 964 844 1001 C798 1038 696 1060 650 1040 C603 1021 585 937 563 886 C542 835 505 775 521 734 C537 693 609 652 659 642 C709 631 775 640 820 669 C865 699 925 765 929 820Z;M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z"/></path></g><g class="lyr" data-d="1.8"><path fill="#7a1f2e" fill-opacity=".07" d="M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z"><animate attributeName="d" dur="24s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z;M373 200 C374 231 360 275 337 296 C313 317 270 329 231 326 C193 322 123 305 107 274 C90 243 112 176 132 138 C152 100 192 51 225 46 C258 42 307 85 332 110 C356 136 373 169 373 200Z;M407 200 C405 242 385 292 355 319 C324 345 258 371 223 360 C189 350 162 293 145 255 C129 217 109 170 122 134 C135 97 182 46 222 35 C263 24 336 39 366 67 C397 94 409 158 407 200Z;M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z"/></path></g></svg><div class="kw kw1"><span>Brands &middot; Films &middot; Web &middot; Brands &middot; Films &middot; Web</span></div><div class="kw kw2"><span>Story &middot; Motion &middot; Growth &middot; Story &middot; Motion &middot; Growth</span></div></div>
+<div id="bg" aria-hidden="true"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g class="lyr" data-d="0.5"><path fill="#e9dfcf" fill-opacity=".95" d="M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z"><animate attributeName="d" dur="22s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z;M1029 230 C1017 305 975 366 924 410 C872 454 779 507 720 494 C660 481 590 393 566 333 C542 273 552 194 577 132 C603 71 650 -6 720 -35 C789 -63 942 -82 994 -38 C1045 6 1040 155 1029 230Z;M1082 230 C1092 300 1041 426 978 479 C916 532 793 564 708 548 C622 531 504 456 468 380 C433 304 454 173 493 92 C533 11 633 -99 704 -105 C774 -110 854 2 917 58 C980 114 1072 160 1082 230Z;M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z"/></path></g><g class="lyr" data-d="0.9"><path fill="#b9b1a5" fill-opacity=".28" d="M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z"><animate attributeName="d" dur="28s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z;M490 760 C496 840 455 969 390 1024 C326 1079 179 1115 105 1090 C31 1065 -30 945 -54 872 C-77 800 -64 723 -36 656 C-8 590 50 492 114 473 C179 454 292 494 354 542 C417 590 484 680 490 760Z;M457 760 C465 838 452 972 393 1027 C334 1083 195 1111 104 1093 C13 1075 -123 994 -150 919 C-177 844 -104 715 -59 645 C-15 574 52 509 119 494 C186 480 286 512 342 557 C398 601 448 682 457 760Z;M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z"/></path></g><g class="lyr" data-d="1.4"><path fill="#7a1f2e" fill-opacity=".10" d="M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z"><animate attributeName="d" dur="19s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z;M932 820 C927 867 842 919 798 943 C754 966 719 966 667 963 C616 959 506 958 487 922 C469 887 525 792 555 750 C585 708 620 684 665 669 C711 654 783 635 827 661 C872 686 937 773 932 820Z;M929 820 C933 875 891 964 844 1001 C798 1038 696 1060 650 1040 C603 1021 585 937 563 886 C542 835 505 775 521 734 C537 693 609 652 659 642 C709 631 775 640 820 669 C865 699 925 765 929 820Z;M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z"/></path></g><g class="lyr" data-d="1.8"><path fill="#7a1f2e" fill-opacity=".07" d="M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z"><animate attributeName="d" dur="24s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z;M373 200 C374 231 360 275 337 296 C313 317 270 329 231 326 C193 322 123 305 107 274 C90 243 112 176 132 138 C152 100 192 51 225 46 C258 42 307 85 332 110 C356 136 373 169 373 200Z;M407 200 C405 242 385 292 355 319 C324 345 258 371 223 360 C189 350 162 293 145 255 C129 217 109 170 122 134 C135 97 182 46 222 35 C263 24 336 39 366 67 C397 94 409 158 407 200Z;M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z"/></path></g><g class="lyr" data-d="1.1"><path fill="#6f8f7a" fill-opacity=".17" transform="translate(190 -330)" d="M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z"/></g><g class="lyr" data-d="1.6"><path fill="#a9bfaa" fill-opacity=".22" transform="translate(-60 380) scale(.8)" d="M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z"/></g></svg><div class="kw kw1"><span>Brands &middot; Films &middot; Web &middot; Brands &middot; Films &middot; Web</span></div><div class="kw kw2"><span>Story &middot; Motion &middot; Growth &middot; Story &middot; Motion &middot; Growth</span></div></div>
 
 
 <div class="hero-bg gutter"><div class="wrap">
   <header class="hero">
-    <span class="label">Portfolio &middot; Montpellier, France</span>
+    <span class="label">Growth marketing &middot; Montpellier, France</span>
     <h1 class="rv">Sahil<br><span>Chhajed</span></h1>
-    <p class="lede rv">I'm a commercial person who learned to build. Four years of selling, recruiting and running accounts in India, now in France studying how Indian brands go global, and making the websites and films to show how I would launch one.</p>
+    <p class="lede rv">I research the market, build the strategy, then make the work that launches a brand: the websites and AI films. My MSc in International Business comes down to one question: how does a brand win in a country that isn't its own?</p>
     <div class="row rv">
       <a class="btn primary" href="https://linkedin.com/in/sahil-chhajed12" target="_blank" rel="noopener">LinkedIn</a>
       <button class="btn" type="button" id="copy-email">Copy email</button>
@@ -195,12 +219,10 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
 </div></div>
 
 <div class="gutter"><div class="wrap">
-  <div class="numbers rv" aria-label="Highlights">
-    <div class="num"><b data-to="25" data-suffix="%+">25%+</b><span>conversion rate on EdTech sales calls</span></div>
-    <div class="num"><b data-to="50" data-suffix="+">50+</b><span>client accounts managed</span></div>
-    <div class="num"><b data-to="7">7</b><span>marketing films</span></div>
-    <div class="num"><b data-to="4">4</b><span>websites built</span></div>
-    <div class="num"><b data-to="6">6</b><span>D2C brands analysed for my thesis</span></div>
+  <div class="triad rv" aria-label="What I do">
+    <div><b>Research</b><span>Market sizing, competitor and consumer analysis before a brand commits.</span></div>
+    <div><b>Strategy</b><span>Market entry, positioning and go-to-market for brands crossing borders.</span></div>
+    <div><b>Launch</b><span>The websites and films that put the idea in front of customers, built with AI tools.</span></div>
   </div>
 </div></div>
 
@@ -209,38 +231,27 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
     <figure class="portrait rv"><img src="img/sahil.jpg" width="720" height="720" alt="Portrait of Sahil Chhajed smiling" loading="lazy"></figure>
     <div class="rv">
       <span class="label">About</span>
-      <h2>I learned business from the <em>other side of the counter.</em></h2>
-      <p>My first job was behind a bar, running the till, the stock and the floor. After that I spent a year selling EdTech by phone, 40 to 50 calls a day, and then four years recruiting and running client pipelines.</p>
-      <p><strong>Every one of those jobs taught me the same thing:</strong> people say yes when they feel understood. Listen first, then make the offer fit.</p>
-      <p>Today I study international business in Montpellier, research how Indian brands win abroad, and build the websites and films that tell a brand&rsquo;s story. I want to bring all three sides to one team.</p>
+      <h2>I take brands from <em>market research to launch.</em></h2>
+      <p>My MSc in International Business goes deep on <strong>internationalization and market entry</strong>, and on <strong>marketing research</strong>: sizing a market, reading customers and benchmarking competitors before a brand spends a euro.</p>
+      <p>I don&rsquo;t stop at the slide deck. I build what a launch needs: the website, the brand film, the go-to-market behind them, using AI tools to move at startup speed.</p>
+      <p>Before marketing I worked in sales, recruiting and client work, so I know what makes a customer say yes and what gets in the way.</p>
     </div>
   </div>
   <div class="traits">
-    <div class="trait rv"><span class="no">01</span><h3>Builder</h3><p>I don&rsquo;t just pitch ideas, I ship them. Four websites and seven films, made with AI tools.</p></div>
-    <div class="trait rv"><span class="no">02</span><h3>High standards</h3><p>&ldquo;Good enough&rdquo; isn&rsquo;t good enough. I will rebuild a scroll animation until it stops stuttering.</p></div>
-    <div class="trait rv"><span class="no">03</span><h3>Reads people</h3><p>Bar, phone and recruiting work taught me to hear the objection behind the question.</p></div>
-    <div class="trait rv"><span class="no">04</span><h3>Between two worlds</h3><p>Indian by background, studying in France. Native in Hindi and Marathi, fluent in English, French improving.</p></div>
+    <div class="trait rv"><span class="no">01</span><h3>Research-led</h3><p>I start with the market: who buys, who competes, what is missing. Six Indian D2C brands benchmarked across four regions.</p></div>
+    <div class="trait rv"><span class="no">02</span><h3>Global lens</h3><p>Brand identity can travel. Execution has to adapt. I plan for both before a market entry.</p></div>
+    <div class="trait rv"><span class="no">03</span><h3>Builds the work</h3><p>Four websites and seven films, made with Claude, Google Flow, Higgsfield, Canva and Figma.</p></div>
+    <div class="trait rv"><span class="no">04</span><h3>Commercial instinct</h3><p>Years of selling and client work taught me to hear the objection and close the gap.</p></div>
   </div>
-</div></section>
-
-<section class="block gutter" id="path"><div class="wrap">
-  <div class="sec-head rv"><span class="label">Career</span><h2>The path so far</h2><p>Four industries, one thread: understand the customer, then close.</p></div>
-  <ol class="path">
-    <li class="step rv"><time>2019</time><div><h3>Bartender &amp; Assistant Manager</h3><div class="co">Lazzez by Enter the Dragon &middot; India</div><p>High-volume venue. Served and advised guests, then ran the day: cash, stock, suppliers and floor staff.</p></div></li>
-    <li class="step rv"><time>2020 &ndash; 2021</time><div><h3>Customer Relations Officer</h3><div class="co">Virgo BPO Services &middot; EdTech sales for Cuemath, Vedantu, Lido Learning</div><p>40 to 50 consultative calls a day, converting 25%+, with 50+ student accounts to retain and upsell.</p></div></li>
-    <li class="step rv"><time>2021 &ndash; 2023</time><div><h3>Senior Recruiter</h3><div class="co">Ztek Consulting Inc. &middot; India</div><p>Screened 50+ candidates a week, negotiated offers and closed 15+ placements for clients.</p></div></li>
-    <li class="step rv"><time>2023 &ndash; 2024</time><div><h3>Recruitment Coordinator</h3><div class="co">Ztek Consulting Inc. &middot; India</div><p>Owned the post-offer pipeline for 20+ candidates a month and cut drop-off between offer and start date.</p></div></li>
-    <li class="step rv"><time>2025</time><div><h3>Commercial Support Officer</h3><div class="co">Alphatech Systems &middot; India</div><p>Ran the CRM pipeline for 10+ accounts, built proposals and cut pipeline reporting time by about 20%.</p></div></li>
-    <li class="step now rv"><time>2025 &ndash; today</time><div><h3>MSc International Business</h3><div class="co">MBS Business School &middot; Montpellier, France</div><p>Researching how six Indian D2C brands expand abroad. Pitched a go-to-market at the WATOWEAR hackathon. Now building the work below.</p></div></li>
-  </ol>
 </div></section>
 
 <section class="block gutter" id="think"><div class="wrap">
   <div class="think rv">
     <div>
-      <span class="label">How I think</span>
+      <span class="label">Research &middot; MSc thesis</span>
       <h2>Does this brand belong there?</h2>
-      <p>From my thesis on Indian D2C brands going global, I built the Cultural Necessity Test: three questions I ask before any market entry. Keep the identity global, adapt the execution locally.</p>
+      <p>My thesis benchmarks the digital marketing and international expansion of six Indian D2C brands across the UK, UAE, North America and Southeast Asia. It produced two original frameworks: <strong>Identity-Execution</strong> (keep brand identity global, adapt execution locally) and the <strong>Cultural Necessity Test</strong>, three questions to ask before any market entry.</p>
+      <ul class="chips" style="margin-top:18px" aria-label="Brands studied"><li>boAt</li><li>Mamaearth</li><li>Minimalist</li><li>The Souled Store</li><li>WOW Skin Science</li><li>Noise</li></ul>
     </div>
     <ol class="qs">
       <li><b>Market necessity</b><span>Does anyone in this market actually need the product?</span></li>
@@ -248,6 +259,17 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
       <li><b>Execution fit</b><span>Can we deliver it the way local customers expect?</span></li>
     </ol>
   </div>
+</div></section>
+
+<section class="block gutter" id="path"><div class="wrap">
+  <div class="sec-head rv"><span class="label">Background</span><h2>What shaped me</h2><p>The commercial foundation under the marketing, and what each role taught me.</p></div>
+  <ol class="path">
+    <li class="step now rv"><time>2025 &ndash; today</time><div><h3>MSc International Business</h3><div class="co">MBS Business School &middot; Montpellier, France</div><p>Internationalization, market entry and marketing research. Pitched a go-to-market for India at the WATOWEAR hackathon and wrote a thesis on how Indian D2C brands expand abroad.</p></div></li>
+    <li class="step rv"><time>2025</time><div><h3>Commercial Support Officer</h3><div class="co">Alphatech Systems &middot; India</div><p>Learned how research and proposals turn into signed deals. Mapped new prospect segments for the business development team and cut pipeline reporting time by about 20%.</p></div></li>
+    <li class="step rv"><time>2021 &ndash; 2024</time><div><h3>Senior Recruiter, then Recruitment Coordinator</h3><div class="co">Ztek Consulting Inc. &middot; India</div><p>Learned to turn a client brief into a market search and to negotiate. Closed 15+ placements, then cut offer-to-start drop-off by tightening the handover.</p></div></li>
+    <li class="step rv"><time>2020 &ndash; 2021</time><div><h3>Customer Relations Officer, EdTech</h3><div class="co">Virgo BPO Services &middot; Cuemath, Vedantu, Lido Learning</div><p>Learned to sell by understanding objections. Converted 25%+ and beat monthly enrolment targets by adapting the pitch to students and parents.</p></div></li>
+    <li class="step rv"><time>2019</time><div><h3>Bartender &amp; Assistant Manager</h3><div class="co">Lazzez by Enter the Dragon &middot; India</div><p>Learned service, cash control and how a good experience turns guests into regulars.</p></div></li>
+  </ol>
 </div></section>
 
 <section class="block gutter" id="films"><div class="wrap">
@@ -293,7 +315,7 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
 <footer class="gutter"><div class="wrap">
   <span class="label rv">What&rsquo;s next</span>
   <h2 class="rv">Let&rsquo;s talk.</h2>
-  <div class="seek rv"><p>I&rsquo;m looking for business development and marketing roles, internship or full-time, in France. Best fit: B2B SaaS, export-driven companies, or recruitment firms that sell across borders. I work in English today and my French is improving.</p></div>
+  <div class="seek rv"><p>I&rsquo;m looking for international marketing, growth and business development roles, internship or full-time, in France. Best fit: brands and B2B companies expanding across borders. English fluent, Hindi and Marathi native, French B1 and improving.</p></div>
   <div class="row rv" style="margin-top:10px">
     <a class="btn primary" href="https://linkedin.com/in/sahil-chhajed12" target="_blank" rel="noopener">linkedin.com/in/sahil-chhajed12</a>
     <span class="email-text">sj163739@gmail.com</span>
