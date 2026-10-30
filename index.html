@@ -106,13 +106,21 @@ h1, h2, h3 { font-family: var(--font-display); margin: 0; text-wrap: balance; }
 .cut.c1 { aspect-ratio: 847 / 1321; } .cut.c3 { aspect-ratio: 890 / 1400; }
 .cut.c2 { aspect-ratio: 1000 / 1258; height: 84vh; bottom: -12vh; }
 
-.stk { position: absolute; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; width: clamp(64px, 8.5vw, 104px); aspect-ratio: 1; color: var(--bg); font: 500 10px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; box-shadow: 0 6px 14px rgba(40,25,25,.25); border: 2px solid var(--bg); opacity: 0; scale: .3; animation: stkmorph 5s ease-in-out infinite, stkbob 3.2s ease-in-out infinite alternate; }
-.stk svg { width: 36%; height: auto; } .stk b { font-weight: 500; }
+.stk { position: absolute; z-index: 5; display: grid; place-items: center; width: clamp(34px, 3.6vw, 48px); aspect-ratio: 1; color: var(--bg); box-shadow: 0 5px 12px rgba(40,25,25,.25); border: 2px solid var(--bg); opacity: 0; scale: .3; cursor: pointer; pointer-events: auto; transition: transform .25s cubic-bezier(.2,1.6,.3,1); animation: stkmorph 5s ease-in-out infinite, stkbob 3.2s ease-in-out infinite alternate; }
+.stk svg { width: 52%; height: auto; pointer-events: none; }
+.stk:hover { transform: scale(1.5) rotate(-12deg); z-index: 8; }
+.stk::after { content: attr(data-tip); position: absolute; top: 118%; left: 50%; translate: -50% 0; font: 500 10px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--bg); background: var(--ink, #1d1819); padding: 3px 7px; border-radius: 99px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.stk:hover::after { opacity: 1; }
+.stk.spin { animation: stkin 0s forwards, stkmorph 5s ease-in-out infinite, stkspin .7s cubic-bezier(.2,1.2,.3,1); }
+@keyframes stkspin { from { transform: rotate(0) scale(1); } 50% { transform: rotate(200deg) scale(1.7); } to { transform: rotate(360deg) scale(1); } }
 .cut.on .stk { animation: stkin .5s cubic-bezier(.2,1.6,.3,1) forwards, stkmorph 5s ease-in-out infinite, stkbob 3.2s ease-in-out infinite alternate; animation-delay: var(--sd, .9s), 0s, 0s; }
-.stk.s1 { left: -12%; top: 18%; background: var(--accent); --sd: .9s; rotate: -8deg; }
-.stk.s2 { right: -10%; top: 4%; background: var(--green); --sd: 1.1s; rotate: 7deg; animation-delay: 0s, -1.2s, -.6s; }
-.stk.s3 { right: -16%; top: 44%; background: #6a5a4a; --sd: 1.3s; rotate: -5deg; }
-.stk.s4 { left: -6%; top: -6%; background: #3d3a36; --sd: 1.5s; rotate: 9deg; }
+.stk.s1 { left: -9%; top: 10%; background: var(--accent); --sd: .9s; rotate: -8deg; }
+.stk.s2 { right: 0; top: -2%; background: var(--green); --sd: 1.05s; rotate: 7deg; }
+.stk.s3 { left: -16%; top: 36%; background: #3d3a36; --sd: 1.2s; rotate: 9deg; }
+.stk.s4 { right: -14%; top: 28%; background: #6a5a4a; --sd: 1.35s; rotate: -5deg; }
+.stk.s5 { left: 4%; top: -11%; background: var(--green); --sd: 1.5s; rotate: 6deg; }
+.stk.s6 { right: 12%; top: -15%; background: var(--accent); --sd: 1.65s; rotate: -9deg; }
+.stk.s7 { right: -6%; top: 50%; background: #3d3a36; --sd: 1.8s; rotate: 8deg; }
 @keyframes stkin { to { opacity: 1; scale: 1; } }
 @keyframes stkmorph { 0%,100% { border-radius: 50%; } 25% { border-radius: 22% 78% 60% 40% / 40% 30% 70% 60%; } 50% { border-radius: 18%; } 75% { border-radius: 70% 30% 30% 70% / 60% 60% 40% 40%; } }
 @keyframes stkbob { from { translate: 0 -4px; } to { translate: 0 5px; } }
@@ -146,8 +154,8 @@ header.hero { padding-block: 44px 56px; display: grid; gap: 22px; }
   .cut { height: 62vh; bottom: 3vh; }
   .cut.c2 { height: auto; width: 108vw; max-width: none; bottom: -2vh; }
   .cut.c0 { height: auto; width: 92vw; max-width: none; bottom: -3vh; }
-  .stk { width: 58px; font-size: 8px; }
-  .stk.s1 { left: 0; top: 24%; } .stk.s2 { right: 0; top: -4%; } .stk.s3 { right: 0; top: 40%; } .stk.s4 { left: 2%; top: -10%; }
+  .stk { width: 34px; }
+  .stk.s1 { left: 0; top: 12%; } .stk.s2 { right: 4%; top: -2%; } .stk.s3 { left: -2%; top: 38%; } .stk.s4 { right: 0; top: 28%; } .stk.s5 { left: 8%; top: -10%; } .stk.s6 { right: 20%; top: -13%; } .stk.s7 { right: 2%; top: 48%; }
   .idbar { left: 0; right: 0; bottom: 0; max-width: none; padding: 40px var(--pad) 22px; background: linear-gradient(0deg, var(--bg) 62%, transparent); }
   .idbar p { font-size: 14px; }
   .cue { display: none; }
@@ -368,8 +376,8 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
   <div class="w r ph2" data-an="rise" aria-hidden="true"><small>To</small><b data-t="Launch"></b></div>
   <div class="poem" aria-hidden="true" data-t="A calm mind,|a bright smile,|that's who you're meeting."></div>
   <div class="w l ph5" data-an="punch" aria-hidden="true"><small>My motto</small><b data-t="Full power"></b></div>
-  <div class="w r ph5" data-an="rise" aria-hidden="true"><small>Sahil Chhajed</small><b data-t="24 hour"></b></div>
-  <div class="cut c0 on" data-i="0"><img src="img/sahil-shades.webp" width="1000" height="1106" alt="Sahil smiling in sunglasses"><span class="stk s1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V5h6v3M3 13h18"/></svg><b>Biz dev</b></span><span class="stk s2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h3l7 4V6L7 10H4z"/><path d="M18 9a4 4 0 010 6"/></svg><b>Marketing</b></span><span class="stk s3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg><b>Growth</b></span><span class="stk s4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><b>Global</b></span></div>
+  <div class="w r ph5" data-an="rise" aria-hidden="true"><b data-t="24 hour"></b></div>
+  <div class="cut c0 on" data-i="0"><img src="img/sahil-shades.webp" width="1000" height="1106" alt="Sahil smiling in sunglasses"><span class="stk s1" data-tip="Marketing" role="img" aria-label="Marketing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h3l7 4V6L7 10H4z"/><path d="M18 9a4 4 0 010 6"/></svg></span><span class="stk s2" data-tip="Growth" role="img" aria-label="Growth"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="stk s3" data-tip="Global" role="img" aria-label="Global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span><span class="stk s4" data-tip="Target" role="img" aria-label="Target"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><span class="stk s5" data-tip="Ideas" role="img" aria-label="Ideas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0012 3z"/></svg></span><span class="stk s6" data-tip="Talk" role="img" aria-label="Talk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg></span><span class="stk s7" data-tip="Launch" role="img" aria-label="Launch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 2 5 5 5 9l-2 4H9l-2-4c0-4 2-7 5-9z"/><circle cx="12" cy="10" r="1.5"/><path d="M9 16l-2 4M15 16l2 4"/></svg></span></div>
   <div class="cut c1" data-i="1"><img src="img/sahil-smile.webp" width="847" height="1321" alt="Sahil laughing in a Montpellier street"></div>
   <div class="cut c2" data-i="2"><img src="img/sahil-hoodie.webp" width="1000" height="1258" alt="Sahil smiling in a grey hoodie under a tree"></div>
   <div class="cut c3" data-i="3"><img src="img/sahil-move.webp" width="890" height="1400" alt="Sahil in motion on a boardwalk, headphones on"></div>
@@ -447,7 +455,7 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
 <section class="block gutter" id="websites"><div class="wrap">
   <div class="sec-head rv"><span class="label">Web</span><h2>Websites</h2><p>Four sites. Each page pans through its real design as you scroll.</p></div>
   <div class="sites">
-    <article class="site"><div class="txt"><span class="name">EngageAd</span><h3>Where ads become entertainment.</h3><p>Pitch site for a shoppable short-video platform, with a 3D shape field, scroll-driven hero and animated counters.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>EngageAd</b></div><div class="vp"><img src="p/engagead.jpg" width="1280" height="6199" alt="Full-page view of the EngageAd website" loading="lazy"></div></div></article>
+    <article class="site"><div class="txt"><span class="name">Parshwanath Mobile Services</span><h3>Technology protected. Style redefined.</h3><p>Site for a local mobile accessories shop, with a dark hero, featured products, a gallery and WhatsApp enquiries.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>Parshwanath Mobile Services</b></div><div class="vp"><img src="p/parshwanath.jpg" width="788" height="2350" alt="Full-page view of the Parshwanath Mobile Services website" loading="lazy"></div></div></article>
     <article class="site"><div class="txt"><span class="name">PSYWEAR</span><h3>Enter the Psyverse.</h3><p>Neon streetwear brand site with an animated hero, a product spotlight, a drop grid and a cart.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>PSYWEAR</b></div><div class="vp"><img src="p/psywear.jpg" width="1280" height="4829" alt="Full-page view of the PSYWEAR website" loading="lazy"></div></div></article>
     <article class="site"><div class="txt"><span class="name">DineVista</span><h3>Discover. Book. Experience.</h3><p>Discovery site for restaurants and boutique hotels, with a guest side and a venue side.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>DineVista</b></div><div class="vp"><img src="p/dinevista.jpg" width="1280" height="5002" alt="Full-page view of the DineVista website" loading="lazy"></div></div></article>
     <article class="site"><div class="txt"><span class="name">Aaradhya Acrylic Rangolis</span><h3>Handcrafted with a mother’s love.</h3><p>Online store for a family-run maker of handmade acrylic rangolis, with collections, custom orders and a WhatsApp enquiry flow.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>Aaradhya Acrylic Rangolis</b></div><div class="vp"><img src="p/aaradhya.jpg" width="1280" height="6400" alt="Full-page view of the Aaradhya Acrylic Rangolis website" loading="lazy"></div></div></article>
@@ -602,10 +610,11 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
       tx.style.opacity = (0.15 + 0.85 * e).toFixed(2);
       var vp = c.querySelector('.vp'), im = vp.firstElementChild;
       var span = Math.max(0, im.offsetHeight - vp.clientHeight);
-      var q = Math.min(1, Math.max(0, (vh * 0.9 - r.top) / (vh * 0.9 + r.height * 0.7)));
+      var q = Math.min(1, Math.max(0, (vh * 0.3 - r.top) / (vh * 0.3 + r.height * 0.9)));
       im.style.transform = 'translate3d(0,' + (-(q * span)).toFixed(1) + 'px,0)';
     });
   }
+  document.querySelectorAll('.stk').forEach(function (k) { k.addEventListener('click', function () { k.classList.remove('spin'); void k.offsetWidth; k.classList.add('spin'); setTimeout(function () { k.classList.remove('spin'); }, 750); }); });
   var tick = false;
   window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; onScroll(); animateCards(); camera(); if (window.__introUpdate) window.__introUpdate(); }); } }, { passive: true });
   onScroll(); animateCards(); camera(); window.addEventListener('resize', function(){ animateCards(); camera(); if (window.__introUpdate) window.__introUpdate(); });
