@@ -49,7 +49,7 @@ h1, h2, h3 { font-family: var(--font-display); margin: 0; text-wrap: balance; }
 
 /* Intro */
 @font-face { font-family: "Rubik Mono One"; src: url(fonts/rubik-mono-one.woff2) format("woff2"); font-display: swap; }
-.intro { position: relative; z-index: 1; height: 440vh; --pad: max(22px, env(safe-area-inset-left, 0px)); --ink: #1d1819; --amber: #f2b544; }
+.intro { position: relative; z-index: 1; height: 300vh; --pad: max(22px, env(safe-area-inset-left, 0px)); --ink: #1d1819; --amber: #f2b544; }
 .stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: var(--bg); color: #2a2523; perspective: 900px; }
 .stage::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 18vh; background: linear-gradient(0deg, var(--bg), transparent); opacity: var(--fade, 0); pointer-events: none; z-index: 8; }
 .cam { position: absolute; inset: -4%; transform: scale(var(--bz, 1.06)); transform-origin: 50% 60%; will-change: transform; }
@@ -76,8 +76,9 @@ h1, h2, h3 { font-family: var(--font-display); margin: 0; text-wrap: balance; }
 .go .w.r.show b { animation-delay: 2.08s; }
 @keyframes beat { 0% { scale: 1; } 9% { scale: 1.055; } 34%, 100% { scale: 1; } }
 .w.r b { color: var(--green); }
+.w.r.ph1 b { margin-top: calc(clamp(12px, 1.3vw, 18px) + 26px); }
 .w.ph2 b, .w.ph3 b, .w.ph5 b { font-size: clamp(30px, 5.4vw, 92px); }
-.poem { position: absolute; z-index: 4; left: var(--pad); top: 20%; display: none; max-width: min(40vw, 560px); font: 800 clamp(30px, 4.4vw, 68px)/1.08 var(--font-display); letter-spacing: -.02em; color: #2a2523; text-shadow: 0 0 14px #f6f2ea, 0 0 6px #f6f2ea; }
+.poem { position: absolute; z-index: 4; left: var(--pad); top: 20%; display: none; max-width: min(46vw, 640px); font: 800 clamp(30px, 4.2vw, 64px)/1.08 var(--font-display); letter-spacing: -.02em; color: #2a2523; text-shadow: 0 0 14px #f6f2ea, 0 0 6px #f6f2ea; }
 .poem.show { display: block; }
 .poem .ln { display: block; }
 .poem .ln:nth-child(2) { padding-left: 1.2em; }
@@ -165,7 +166,7 @@ header.hero { padding-block: 44px 56px; display: grid; gap: 22px; }
   .intro { height: auto; }
   .stage { position: relative; height: 100vh; }
   .poem .pw { opacity: 1; }
-  .cut.c1, .cut.c2, .cut.c3 { display: none; } .stk { animation: none; opacity: 1; scale: 1; }
+  .cut.c3 { display: none; } .stk { animation: none; opacity: 1; scale: 1; }
   .flash { display: none; }
   .cam, .go .cam, .cam .metro, .w b, .go .w.show b, .cut img, .cue i, .cut.pop, .go .w.show .ch, .go .w.show small, .avail i { animation: none; }
   .ch, .w small { opacity: 1; }
@@ -237,7 +238,7 @@ section.block { padding-block: 96px 0; }
 .step time { font: 500 13px var(--font-mono); color: var(--accent); padding-top: 3px; }
 .step h3 { font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
 .step .co { font: 400 13px var(--font-mono); color: var(--muted); margin-top: 2px; }
-.step p { margin: 8px 0 0; color: var(--muted); max-width: 62ch; }
+.step p {  margin: 8px 0 0; color: var(--muted); max-width: 62ch; }
 .think { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 56px); align-items: start; padding: clamp(22px, 4vw, 44px); background: var(--surface); border: 1px solid var(--line); border-radius: 20px; }
 .think h2 { font-size: clamp(30px, 4.4vw, 48px); font-weight: 800; letter-spacing: -.02em; line-height: 1.05; margin: 10px 0 14px; }
 .think > div > p { margin: 0; color: var(--muted); }
@@ -252,10 +253,26 @@ section.block { padding-block: 96px 0; }
 .seek p { margin: 0; color: var(--muted); font-size: 17px; }
 
 /* Films */
-.films { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; }
-.films .reel { grid-column: span 2; }
-.films .reel:first-child { grid-column: 1 / -1; }
-.films .reel:first-child figcaption h3 { font-size: 24px; }
+#films { padding-block: 0; }
+.films-pin { height: 380vh; }
+.films-sticky { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+.films-sticky .wrap { width: 100%; }
+.films { position: relative; }
+.films .rail { position: relative; height: clamp(250px, 33vw, 400px); perspective: 1400px; overflow: visible; }
+.films .reel { position: absolute; left: 50%; top: 0; width: clamp(250px, 44vw, 560px); transform: translateX(calc(-50% + var(--x, 0px))) scale(var(--s, 1)) rotateY(var(--ry, 0deg)); opacity: var(--o, 0); z-index: var(--z, 0); transition: border-color .25s; cursor: pointer; box-shadow: 0 18px 40px rgba(60,35,35,.14); }
+.films .reel:hover { transform: translateX(calc(-50% + var(--x, 0px))) scale(var(--s, 1)) rotateY(var(--ry, 0deg)); }
+.films .reel.act { border-color: var(--accent); cursor: default; }
+.films .reel:not(.act) figcaption { opacity: .0; }
+.films .screen { cursor: inherit; }
+.films .screen::after { content: ""; position: absolute; inset: 0; background: rgba(246,242,234,.38); transition: opacity .6s; }
+.films .reel.act .screen::after { opacity: 0; }
+.dots { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
+.dots button { width: 9px; height: 9px; padding: 0; border-radius: 99px; border: 0; background: var(--line); cursor: pointer; transition: width .3s, background .3s; }
+.dots button.on { width: 26px; background: var(--accent); }
+@media (max-width: 860px) { .films .rail { height: clamp(210px, 52vw, 300px); } .films .reel { width: 76vw; } }
+@media (prefers-reduced-motion: reduce) { .films-pin { height: auto; } .films-sticky { position: static; height: auto; padding: 40px 0; } }
+.step .lk { display: block; font: 500 11px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 2px; }
+.step p + p { margin-top: 10px; }
 .reel { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; transition: border-color .25s, transform .25s; }
 .reel:hover { border-color: var(--accent); transform: translateY(-3px); }
 .screen { position: relative; display: block; width: 100%; padding: 0; border: 0; background: #000; aspect-ratio: 16 / 9; cursor: pointer; }
@@ -302,7 +319,6 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
 .js .rv { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
 .js .rv.in { opacity: 1; transform: none; }
 
-@media (min-width: 861px) { .films .reel:nth-child(even) { transition-delay: .12s; } }
 @media (max-width: 860px) {
   .about, .think { grid-template-columns: minmax(0, 1fr); }
   .portrait { max-width: 360px; }
@@ -311,8 +327,6 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
   .triad { grid-template-columns: minmax(0, 1fr); }
   .numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .num { border-bottom: 1px solid var(--line); }
-  .films { grid-template-columns: minmax(0, 1fr); }
-  .films .reel, .films .reel:nth-child(-n+3) { grid-column: auto; }
   .site, .site:nth-child(even) { grid-template-columns: minmax(0, 1fr); }
   .site:nth-child(even) .txt { order: 0; }
   .hack { grid-template-columns: minmax(0, 1fr); }
@@ -363,23 +377,17 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
 </style>
 
 <div id="progress"></div>
-<div id="bg" aria-hidden="true"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g class="lyr" data-d="0.5"><path fill="#e9dfcf" fill-opacity=".95" d="M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z"><animate attributeName="d" dur="22s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z;M1029 230 C1017 305 975 366 924 410 C872 454 779 507 720 494 C660 481 590 393 566 333 C542 273 552 194 577 132 C603 71 650 -6 720 -35 C789 -63 942 -82 994 -38 C1045 6 1040 155 1029 230Z;M1082 230 C1092 300 1041 426 978 479 C916 532 793 564 708 548 C622 531 504 456 468 380 C433 304 454 173 493 92 C533 11 633 -99 704 -105 C774 -110 854 2 917 58 C980 114 1072 160 1082 230Z;M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z"/></path></g><g class="lyr" data-d="0.9"><path fill="#b9b1a5" fill-opacity=".28" d="M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z"><animate attributeName="d" dur="28s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z;M490 760 C496 840 455 969 390 1024 C326 1079 179 1115 105 1090 C31 1065 -30 945 -54 872 C-77 800 -64 723 -36 656 C-8 590 50 492 114 473 C179 454 292 494 354 542 C417 590 484 680 490 760Z;M457 760 C465 838 452 972 393 1027 C334 1083 195 1111 104 1093 C13 1075 -123 994 -150 919 C-177 844 -104 715 -59 645 C-15 574 52 509 119 494 C186 480 286 512 342 557 C398 601 448 682 457 760Z;M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z"/></path></g><g class="lyr" data-d="1.4"><path fill="#7a1f2e" fill-opacity=".10" d="M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z"><animate attributeName="d" dur="19s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z;M932 820 C927 867 842 919 798 943 C754 966 719 966 667 963 C616 959 506 958 487 922 C469 887 525 792 555 750 C585 708 620 684 665 669 C711 654 783 635 827 661 C872 686 937 773 932 820Z;M929 820 C933 875 891 964 844 1001 C798 1038 696 1060 650 1040 C603 1021 585 937 563 886 C542 835 505 775 521 734 C537 693 609 652 659 642 C709 631 775 640 820 669 C865 699 925 765 929 820Z;M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z"/></path></g><g class="lyr" data-d="1.8"><path fill="#7a1f2e" fill-opacity=".07" d="M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z"><animate attributeName="d" dur="24s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z;M373 200 C374 231 360 275 337 296 C313 317 270 329 231 326 C193 322 123 305 107 274 C90 243 112 176 132 138 C152 100 192 51 225 46 C258 42 307 85 332 110 C356 136 373 169 373 200Z;M407 200 C405 242 385 292 355 319 C324 345 258 371 223 360 C189 350 162 293 145 255 C129 217 109 170 122 134 C135 97 182 46 222 35 C263 24 336 39 366 67 C397 94 409 158 407 200Z;M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z"/></path></g><g class="lyr" data-d="1.1"><path fill="#6f8f7a" fill-opacity=".17" transform="translate(190 -330)" d="M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z"/></g><g class="lyr" data-d="1.6"><path fill="#a9bfaa" fill-opacity=".22" transform="translate(-60 380) scale(.8)" d="M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z"/></g></svg><div class="kw kw1"><span>Brands &middot; Films &middot; Web &middot; Brands &middot; Films &middot; Web</span></div><div class="kw kw2"><span>Story &middot; Motion &middot; Growth &middot; Story &middot; Motion &middot; Growth</span></div></div>
+<div id="bg" aria-hidden="true"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g class="lyr" data-d="0.5"><path fill="#e9dfcf" fill-opacity=".95" d="M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z"><animate attributeName="d" dur="22s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z;M1029 230 C1017 305 975 366 924 410 C872 454 779 507 720 494 C660 481 590 393 566 333 C542 273 552 194 577 132 C603 71 650 -6 720 -35 C789 -63 942 -82 994 -38 C1045 6 1040 155 1029 230Z;M1082 230 C1092 300 1041 426 978 479 C916 532 793 564 708 548 C622 531 504 456 468 380 C433 304 454 173 493 92 C533 11 633 -99 704 -105 C774 -110 854 2 917 58 C980 114 1072 160 1082 230Z;M1029 230 C1036 296 1013 414 962 458 C910 501 796 507 721 490 C645 474 546 425 510 360 C475 295 471 157 508 99 C544 41 662 17 730 11 C798 4 866 23 916 60 C966 96 1021 164 1029 230Z"/></path></g><g class="lyr" data-d="0.9"><path fill="#b9b1a5" fill-opacity=".28" d="M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z"><animate attributeName="d" dur="28s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z;M490 760 C496 840 455 969 390 1024 C326 1079 179 1115 105 1090 C31 1065 -30 945 -54 872 C-77 800 -64 723 -36 656 C-8 590 50 492 114 473 C179 454 292 494 354 542 C417 590 484 680 490 760Z;M457 760 C465 838 452 972 393 1027 C334 1083 195 1111 104 1093 C13 1075 -123 994 -150 919 C-177 844 -104 715 -59 645 C-15 574 52 509 119 494 C186 480 286 512 342 557 C398 601 448 682 457 760Z;M486 760 C492 837 446 951 381 1012 C316 1074 176 1148 96 1128 C16 1109 -65 978 -98 894 C-131 810 -138 699 -104 623 C-69 548 32 453 107 441 C182 430 282 499 346 552 C409 605 480 683 486 760Z"/></path></g><g class="lyr" data-d="1.4"><path fill="#7a1f2e" fill-opacity=".10" d="M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z"><animate attributeName="d" dur="19s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z;M932 820 C927 867 842 919 798 943 C754 966 719 966 667 963 C616 959 506 958 487 922 C469 887 525 792 555 750 C585 708 620 684 665 669 C711 654 783 635 827 661 C872 686 937 773 932 820Z;M929 820 C933 875 891 964 844 1001 C798 1038 696 1060 650 1040 C603 1021 585 937 563 886 C542 835 505 775 521 734 C537 693 609 652 659 642 C709 631 775 640 820 669 C865 699 925 765 929 820Z;M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z"/></path></g><g class="lyr" data-d="1.8"><path fill="#7a1f2e" fill-opacity=".07" d="M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z"><animate attributeName="d" dur="24s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z;M373 200 C374 231 360 275 337 296 C313 317 270 329 231 326 C193 322 123 305 107 274 C90 243 112 176 132 138 C152 100 192 51 225 46 C258 42 307 85 332 110 C356 136 373 169 373 200Z;M407 200 C405 242 385 292 355 319 C324 345 258 371 223 360 C189 350 162 293 145 255 C129 217 109 170 122 134 C135 97 182 46 222 35 C263 24 336 39 366 67 C397 94 409 158 407 200Z;M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z"/></path></g><g class="lyr" data-d="1.1"><path fill="#6f8f7a" fill-opacity=".17" transform="translate(190 -330)" d="M859 820 C858 875 863 949 829 982 C795 1015 705 1031 655 1017 C605 1004 548 946 531 902 C513 857 532 798 552 749 C573 700 604 625 652 609 C699 592 802 614 836 649 C871 685 860 765 859 820Z"/></g><g class="lyr" data-d="1.6"><path fill="#a9bfaa" fill-opacity=".22" transform="translate(-60 380) scale(.8)" d="M369 200 C368 231 355 269 332 291 C309 312 265 336 230 332 C195 328 133 298 120 267 C108 237 135 179 154 149 C173 119 204 95 234 87 C265 79 315 84 337 103 C360 122 370 169 369 200Z"/></g></svg><div class="kw kw1"><span>Innovative &middot; Calm &middot; Curious &middot; Innovative &middot; Calm &middot; Curious</span></div><div class="kw kw2"><span>Creative &middot; Kind &middot; Thoughtful &middot; Creative &middot; Kind &middot; Thoughtful</span></div></div>
 
 
 <section class="intro" id="intro" aria-label="Introduction"><div class="stage" id="stage">
   <div class="cam" id="cam"><video class="metro" id="metro" src="v/metro-sketch.mp4" poster="img/metro-sketch.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video></div>
   <div class="dim" aria-hidden="true"></div>
   <h1 class="sr">Sahil Chhajed, international marketing and growth</h1>
-  <div class="w l ph1 show" data-an="drop" aria-hidden="true"><small>This is</small><b data-t="Sahil"></b></div>
-  <div class="w r ph1 show" data-an="slide" aria-hidden="true"><small>He launches</small><b data-t="Brands"></b></div>
-  <div class="w l ph2" data-an="flip" aria-hidden="true"><small>From</small><b data-t="Research"></b></div>
-  <div class="w r ph2" data-an="rise" aria-hidden="true"><small>To</small><b data-t="Launch"></b></div>
-  <div class="poem" aria-hidden="true" data-t="A calm mind,|a bright smile,|that's who you're meeting."></div>
+  <div class="poem" aria-hidden="true" data-t="Hi, this is Sahil,|helps brands|from research to launch."></div>
   <div class="w l ph5" data-an="punch" aria-hidden="true"><small>My motto</small><b data-t="Full power"></b></div>
   <div class="w r ph5" data-an="rise" aria-hidden="true"><b data-t="24 hour"></b></div>
-  <div class="cut c0 on" data-i="0"><img src="img/sahil-shades.webp" width="1000" height="1106" alt="Sahil smiling in sunglasses"><span class="stk s1" data-tip="Marketing" role="img" aria-label="Marketing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h3l7 4V6L7 10H4z"/><path d="M18 9a4 4 0 010 6"/></svg></span><span class="stk s2" data-tip="Growth" role="img" aria-label="Growth"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="stk s3" data-tip="Global" role="img" aria-label="Global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span><span class="stk s4" data-tip="Target" role="img" aria-label="Target"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><span class="stk s5" data-tip="Ideas" role="img" aria-label="Ideas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0012 3z"/></svg></span><span class="stk s6" data-tip="Talk" role="img" aria-label="Talk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg></span><span class="stk s7" data-tip="Launch" role="img" aria-label="Launch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 2 5 5 5 9l-2 4H9l-2-4c0-4 2-7 5-9z"/><circle cx="12" cy="10" r="1.5"/><path d="M9 16l-2 4M15 16l2 4"/></svg></span></div>
-  <div class="cut c1" data-i="1"><img src="img/sahil-smile.webp" width="847" height="1321" alt="Sahil laughing in a Montpellier street"></div>
-  <div class="cut c2" data-i="2"><img src="img/sahil-hoodie.webp" width="1000" height="1258" alt="Sahil smiling in a grey hoodie under a tree"></div>
+  <div class="cut c1 on" data-i="0"><img src="img/sahil-smile.webp" width="847" height="1321" alt="Sahil laughing in a Montpellier street"></div>
   <div class="cut c3" data-i="3"><img src="img/sahil-move.webp" width="890" height="1400" alt="Sahil in motion on a boardwalk, headphones on"></div>
   <div class="flash" id="flash" aria-hidden="true"></div>
   <div class="cue" id="cue" aria-hidden="true"><i></i>Scroll</div>
@@ -388,10 +396,9 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
 <div class="hero-bg gutter"><div class="wrap">
   <header class="hero">
     <span class="label rv">Who is Sahil</span>
-    <p class="lede rv">An international marketing and growth profile. I size a market, plan how a brand enters it, then make the website and film that launch it.</p>
+    <p class="lede rv">Curious by nature. I love finding out why people choose the brands they love, and bringing fresh, simple ideas that help a brand stay true to itself.</p>
     
     <ul class="chips status rv" aria-label="Status"><li>Based in France</li><li>Open to work</li></ul>
-    <ul class="chips rv" aria-label="Tools"><li>Claude AI</li><li>Google AI Studio</li><li>Google Flow</li><li>Higgsfield</li><li>Canva</li><li>Figma</li></ul>
   </header>
 </div></div>
 
@@ -400,15 +407,15 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
     <figure class="portrait rv"><img src="img/sahil.jpg" width="720" height="720" alt="Portrait of Sahil Chhajed smiling" loading="lazy"></figure>
     <div class="rv">
       <span class="label">About</span>
-      <h2>I take brands from <em>market research to launch.</em></h2>
-      <p>I study how brands win in a country that isn&rsquo;t their own, and I build the pieces that launch them. Before marketing: sales, recruiting and client work, so I know what makes a customer say yes.</p>
+      <h2>I help brands become <em>easy to love.</em></h2>
+      <p>A brand is a promise. I listen to what people feel and need, then help shape an identity and a story that earn their trust, so the brand keeps its promise every time someone meets it.</p>
     </div>
   </div>
   <div class="traits">
-    <div class="trait rv"><span class="no">01</span><h3>Research-led</h3><p>Who buys, who competes, what is missing.</p></div>
-    <div class="trait rv"><span class="no">02</span><h3>Global lens</h3><p>Identity travels. Execution adapts.</p></div>
-    <div class="trait rv"><span class="no">03</span><h3>Builds the work</h3><p>Websites and films, made with AI tools.</p></div>
-    <div class="trait rv"><span class="no">04</span><h3>Commercial instinct</h3><p>I hear the objection and close the gap.</p></div>
+    <div class="trait rv"><span class="no">01</span><h3>Curious</h3><p>I ask why people choose what they choose.</p></div>
+    <div class="trait rv"><span class="no">02</span><h3>Fresh ideas</h3><p>I look for new, simple ways to tell a brand&rsquo;s story.</p></div>
+    <div class="trait rv"><span class="no">03</span><h3>True to the brand</h3><p>Identity and promise should always match.</p></div>
+    <div class="trait rv"><span class="no">04</span><h3>People first</h3><p>Good brands make people feel understood.</p></div>
   </div>
 </div></section>
 
@@ -416,49 +423,51 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
   <div class="think rv">
     <div>
       <span class="label">Research &middot; MSc thesis</span>
-      <h2>Does this brand belong there?</h2>
-      <p>My thesis compares six Indian D2C brands entering the UK, UAE, North America and Southeast Asia. It produced two frameworks: <strong>Identity-Execution</strong> and the <strong>Cultural Necessity Test</strong>.</p>
+      <h2>Does the brand keep its promise?</h2>
+      <p>My thesis looks at how six well-known consumer brands build their identity and an emotional bond with their audience. It led to two simple frameworks: <strong>Identity-Execution</strong> and the <strong>Cultural Necessity Test</strong>.</p>
       <ul class="chips" style="margin-top:18px" aria-label="Brands studied"><li>boAt</li><li>Mamaearth</li><li>Minimalist</li><li>The Souled Store</li><li>WOW Skin Science</li><li>Noise</li></ul>
     </div>
     <ol class="qs">
-      <li><b>Market necessity</b><span>Does anyone in this market actually need the product?</span></li>
-      <li><b>Cultural resonance</b><span>Will it mean something to them, not just look familiar?</span></li>
-      <li><b>Execution fit</b><span>Can we deliver it the way local customers expect?</span></li>
+      <li><b>Real need</b><span>Does the audience truly need what the brand offers?</span></li>
+      <li><b>Real meaning</b><span>Will it feel personal to them, not just familiar?</span></li>
+      <li><b>Promise kept</b><span>Does the experience match what the brand said?</span></li>
     </ol>
   </div>
 </div></section>
 
 <section class="block gutter" id="path"><div class="wrap">
-  <div class="sec-head rv"><span class="label">Background</span><h2>What shaped me</h2><p>The commercial foundation under the marketing.</p></div>
+  <div class="sec-head rv"><span class="label">Background</span><h2>What shaped me</h2><p>Five roles, five sides of how I work.</p></div>
   <ol class="path">
-    <li class="step now rv"><time>2025 &ndash; today</time><div><h3>MSc International Business</h3><div class="co">MBS Business School &middot; Montpellier, France</div><p>Internationalization, market entry and marketing research.</p></div></li>
-    <li class="step rv"><time>2025</time><div><h3>Commercial Support Officer</h3><div class="co">Alphatech Systems &middot; India</div><p>Mapped prospect segments for business development. Cut pipeline reporting time by about 20%.</p></div></li>
-    <li class="step rv"><time>2021 &ndash; 2024</time><div><h3>Senior Recruiter, then Recruitment Coordinator</h3><div class="co">Ztek Consulting Inc. &middot; India</div><p>Closed 15+ placements and tightened the offer-to-start handover.</p></div></li>
-    <li class="step rv"><time>2020 &ndash; 2021</time><div><h3>Customer Relations Officer, EdTech</h3><div class="co">Virgo BPO Services &middot; Cuemath, Vedantu, Lido Learning</div><p>Converted 25%+ and beat monthly enrolment targets.</p></div></li>
-    <li class="step rv"><time>2019</time><div><h3>Bartender &amp; Assistant Manager</h3><div class="co">Lazzez by Enter the Dragon &middot; India</div><p>Service, cash control and repeat customers.</p></div></li>
+    <li class="step now rv"><time>2025 &ndash; today</time><div><h3>The Thinker</h3><div class="co">MSc International Business &middot; MBS Business School</div><p><b class="lk">Marketing &amp; innovative thinking</b>Curiosity turned into a method: I study the audience first, then design the idea around them.</p></div></li>
+    <li class="step rv"><time>2025</time><div><h3>The Strategist</h3><div class="co">Commercial Support Officer &middot; Alphatech Systems</div><p><b class="lk">Business development</b>I read a market through its customers: who they are, what they need and when, before any pitch is written.</p></div></li>
+    <li class="step rv"><time>2021 &ndash; 2024</time><div><h3>The Connector</h3><div class="co">Senior Recruiter &amp; Recruitment Coordinator &middot; Ztek Consulting</div><p><b class="lk">Human resource &amp; team management</b>I bring clients, candidates and teams around one honest promise, and keep it from first brief to first day.</p></div></li>
+    <li class="step rv"><time>2020 &ndash; 2021</time><div><h3>The Listener</h3><div class="co">Customer Relations Officer, EdTech &middot; Virgo BPO Services</div><p><b class="lk">Sales</b>I turn objections into conversations, and sell by understanding what someone really needs.</p></div></li>
+    <li class="step rv"><time>2019</time><div><h3>The Host</h3><div class="co">Bartender &amp; Assistant Manager &middot; Lazzez by Enter the Dragon</div><p><b class="lk">Team leadership</b>My first team: I learned that a trained, trusted team and a warm welcome make people return.</p></div></li>
   </ol>
 </div></section>
 
-<section class="block gutter" id="films"><div class="wrap">
-  <div class="sec-head rv"><span class="label">Work</span><h2>Films</h2><p>Seven brand films made with AI video tools. Tap to play.</p></div>
-  <div class="films">
-    <figure class="reel rv"><button class="screen" type="button" aria-label="Play NOCTA ad"><video muted loop playsinline preload="none" poster="v/nocta.jpg"><source src="v/nocta.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>NOCTA, &ldquo;Break It in Two&rdquo;</h3><span class="cat">Dark chocolate for Gen Z &middot; 15s ad</span></figcaption></figure>
-    <figure class="reel rv"><button class="screen" type="button" aria-label="Play Shanghai Beer Festival film"><video muted loop playsinline preload="none" poster="v/shanghai.jpg"><source src="v/shanghai.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>Shanghai Beer Festival</h3><span class="cat">Automobile exhibition &middot; event film</span></figcaption></figure>
-    <figure class="reel rv"><button class="screen" type="button" aria-label="Play Gercheese ad"><video muted loop playsinline preload="none" poster="v/cheese.jpg"><source src="v/cheese.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>Gercheese</h3><span class="cat">Plant-based Dutch cheese &middot; brand ad</span></figcaption></figure>
-    <figure class="reel rv"><button class="screen" type="button" aria-label="Play Mamaearth film"><video muted loop playsinline preload="none" poster="v/mamaearth.jpg"><source src="v/mamaearth.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>Mamaearth</h3><span class="cat">Natural skincare &middot; product film</span></figcaption></figure>
-    <figure class="reel rv"><button class="screen" type="button" aria-label="Play WOW Skin Science film"><video muted loop playsinline preload="none" poster="v/wow.jpg"><source src="v/wow.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>WOW Skin Science</h3><span class="cat">Skincare &middot; product film</span></figcaption></figure>
-    <figure class="reel rv"><button class="screen" type="button" aria-label="Play Skincare serums film"><video muted loop playsinline preload="none" poster="v/serums.jpg"><source src="v/serums.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>Serums</h3><span class="cat">Skincare &middot; product film</span></figcaption></figure>
-    <figure class="reel rv"><button class="screen" type="button" aria-label="Play The Souled Store film"><video muted loop playsinline preload="none" poster="v/souled.jpg"><source src="v/souled.mp4" type="video/mp4"></video><span class="play">&#9654;</span></button><figcaption><h3>The Souled Store</h3><span class="cat">Apparel &middot; lifestyle film</span></figcaption></figure>
-  </div>
-</div></section>
+<section class="block gutter" id="films"><div class="films-pin" id="films-pin"><div class="films-sticky"><div class="wrap">
+  <div class="sec-head rv"><span class="label">Work</span><h2>Films</h2><p>Short stories for brands. They play on their own as you watch.</p></div>
+  <div class="films rv" id="films-stage"><div class="rail">
+    <figure class="reel"><button class="screen" type="button" aria-label="Play NOCTA ad"><video muted loop playsinline preload="none" poster="v/nocta.jpg"><source src="v/nocta.mp4" type="video/mp4"></video></button><figcaption><h3>NOCTA, &ldquo;Break It in Two&rdquo;</h3><span class="cat">Dark chocolate for Gen Z &middot; 15s ad</span></figcaption></figure>
+    <figure class="reel"><button class="screen" type="button" aria-label="Play Shanghai Beer Festival film"><video muted loop playsinline preload="none" poster="v/shanghai.jpg"><source src="v/shanghai.mp4" type="video/mp4"></video></button><figcaption><h3>Shanghai Beer Festival</h3><span class="cat">Volkswagen &middot; automobile exhibition &middot; event film</span></figcaption></figure>
+    <figure class="reel"><button class="screen" type="button" aria-label="Play Gercheese ad"><video muted loop playsinline preload="none" poster="v/cheese.jpg"><source src="v/cheese.mp4" type="video/mp4"></video></button><figcaption><h3>Gercheese</h3><span class="cat">Plant-based Dutch cheese &middot; brand ad</span></figcaption></figure>
+    <figure class="reel"><button class="screen" type="button" aria-label="Play Mamaearth film"><video muted loop playsinline preload="none" poster="v/mamaearth.jpg"><source src="v/mamaearth.mp4" type="video/mp4"></video></button><figcaption><h3>Mamaearth</h3><span class="cat">Natural skincare &middot; product film</span></figcaption></figure>
+    <figure class="reel"><button class="screen" type="button" aria-label="Play WOW Skin Science film"><video muted loop playsinline preload="none" poster="v/wow.jpg"><source src="v/wow.mp4" type="video/mp4"></video></button><figcaption><h3>WOW Skin Science</h3><span class="cat">Skincare &middot; product film</span></figcaption></figure>
+    <figure class="reel"><button class="screen" type="button" aria-label="Play Skincare serums film"><video muted loop playsinline preload="none" poster="v/serums.jpg"><source src="v/serums.mp4" type="video/mp4"></video></button><figcaption><h3>Serums</h3><span class="cat">Skincare &middot; product film</span></figcaption></figure>
+    <figure class="reel"><button class="screen" type="button" aria-label="Play The Souled Store film"><video muted loop playsinline preload="none" poster="v/souled.jpg"><source src="v/souled.mp4" type="video/mp4"></video></button><figcaption><h3>The Souled Store</h3><span class="cat">Apparel &middot; lifestyle film</span></figcaption></figure>
+  </div><div class="dots" id="films-dots" role="tablist" aria-label="Choose a film"></div>
+</div>
+</div></div></div></section>
 
 <section class="block gutter" id="websites"><div class="wrap">
-  <div class="sec-head rv"><span class="label">Web</span><h2>Websites</h2><p>Four sites. Each page pans through its real design as you scroll.</p></div>
+  <div class="sec-head rv"><span class="label">Web</span><h2>Websites &amp; apps</h2><p>Five builds. Each one pans through its real design as you scroll.</p></div>
   <div class="sites">
     <article class="site"><div class="txt"><span class="name">Parshwanath Mobile Services</span><h3>Technology protected. Style redefined.</h3><p>Site for a local mobile accessories shop, with a dark hero, featured products, a gallery and WhatsApp enquiries.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>Parshwanath Mobile Services</b></div><div class="vp"><img src="p/parshwanath.jpg" width="788" height="2350" alt="Full-page view of the Parshwanath Mobile Services website" loading="lazy"></div></div></article>
     <article class="site"><div class="txt"><span class="name">PSYWEAR</span><h3>Enter the Psyverse.</h3><p>Neon streetwear brand site with an animated hero, a product spotlight, a drop grid and a cart.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>PSYWEAR</b></div><div class="vp"><img src="p/psywear.jpg" width="1280" height="4829" alt="Full-page view of the PSYWEAR website" loading="lazy"></div></div></article>
     <article class="site"><div class="txt"><span class="name">DineVista</span><h3>Discover. Book. Experience.</h3><p>Discovery site for restaurants and boutique hotels, with a guest side and a venue side.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>DineVista</b></div><div class="vp"><img src="p/dinevista.jpg" width="1280" height="5002" alt="Full-page view of the DineVista website" loading="lazy"></div></div></article>
     <article class="site"><div class="txt"><span class="name">Aaradhya Acrylic Rangolis</span><h3>Handcrafted with a mother’s love.</h3><p>Online store for a family-run maker of handmade acrylic rangolis, with collections, custom orders and a WhatsApp enquiry flow.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>Aaradhya Acrylic Rangolis</b></div><div class="vp"><img src="p/aaradhya.jpg" width="1280" height="6400" alt="Full-page view of the Aaradhya Acrylic Rangolis website" loading="lazy"></div></div></article>
+    <article class="site"><div class="txt"><span class="name">French Journey &middot; app prototype</span><h3>Learn French by living the conversation.</h3><p>A language-learning prototype: a 25-day journey of real situations, French audio for every line, grammar explained in English and a Dialogue Lab to practise.</p></div><div class="browser"><div class="bar"><i></i><i></i><i></i><b>French Journey</b></div><div class="vp"><img src="p/frenchjourney.jpg" width="777" height="1820" alt="French Journey language-learning app: home, 25-day journey, lesson and dialogue lab" loading="lazy"></div></div></article>
   </div>
 </div></section>
 
@@ -523,7 +532,7 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
   (function () {
     var intro = document.getElementById('intro'); if (!intro) return;
     var stage = document.getElementById('stage'), cuts = [].slice.call(document.querySelectorAll('.cut')), flash = document.getElementById('flash'), curPhoto = 0, cue = document.getElementById('cue'), metro = document.getElementById('metro'), cam = document.getElementById('cam');
-    var ws = [].slice.call(document.querySelectorAll('.w')), groups = [[], [].slice.call(document.querySelectorAll('.w.ph1')), [].slice.call(document.querySelectorAll('.w.ph2')), [].slice.call(document.querySelectorAll('.w.ph3')), [document.querySelector('.poem')], [].slice.call(document.querySelectorAll('.w.ph5'))];
+    var ws = [].slice.call(document.querySelectorAll('.w')), groups = [[], [document.querySelector('.poem')], [], [], [], [].slice.call(document.querySelectorAll('.w.ph5'))];
     [].slice.call(document.querySelectorAll('.w b')).forEach(function (b, k) {
       var i = 0; b.textContent = '';
       b.dataset.t.split('').forEach(function (c) { var sp = document.createElement('span'); sp.className = 'ch'; sp.style.setProperty('--i', i++); sp.style.setProperty('--r', (i % 2 ? -9 : 7) + 'deg'); if (c === ' ') sp.className += ' sp'; sp.textContent = c === ' ' ? '\u00a0' : c; b.appendChild(sp); });
@@ -541,7 +550,7 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
     function clamp(v) { return Math.max(0, Math.min(1, v)); }
     function smooth(a, b, v) { var t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t); }
     var phase = 0;
-    var photoFor = { 1: 0, 2: 1, 3: 1, 4: 2, 5: 3 };
+    var photoFor = { 1: 0, 5: 1 };
     function showPhoto(i) {
       if (i === curPhoto) return; curPhoto = i;
       cuts.forEach(function (c, k) { c.classList.remove('pop', 'swap'); c.classList.toggle('on', k === i); });
@@ -566,7 +575,7 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
       });
       stage.style.setProperty('--fade', smooth(0.94, 1, p).toFixed(2));
       cue.style.opacity = (1 - clamp(p / 0.06)).toFixed(2);
-      setPhase(p < 0.22 ? 1 : (p < 0.25 ? 0 : (p < 0.47 ? 2 : (p < 0.5 ? 0 : (p < 0.74 ? 4 : (p < 0.77 ? 0 : 5))))));
+      setPhase(p < 0.5 ? 1 : (p < 0.54 ? 0 : 5));
     }
     window.__introUpdate = update;
     update();
@@ -632,7 +641,7 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
         else { v.pause(); if (b) b.classList.remove('playing'); }
       });
     }, { threshold: 0.6 });
-    document.querySelectorAll('.reel video').forEach(function (v) { vo.observe(v); });
+    document.querySelectorAll('.noreel video').forEach(function (v) { vo.observe(v); });
 
     var nio = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
@@ -646,7 +655,7 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
     document.querySelectorAll('.num b').forEach(function (n) { nio.observe(n); });
   }
 
-  document.querySelectorAll('.screen').forEach(function (b) {
+  document.querySelectorAll('.noscreen').forEach(function (b) {
     var v = b.querySelector('video');
     b.addEventListener('click', function () {
       if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); b.classList.add('playing'); }
@@ -659,11 +668,11 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
 <script>
 (function () {
   var P = function (n, c) { return { t: 'p', n: n, c: c }; }, V = function (n, c) { return { t: 'v', n: n, c: c }; };
-  var A = [P('eiffel', 'Eiffel Tower, Paris'), P('sky-gold', 'Golden hour sky'), P('calf', 'Street portrait, India'), P('rails', 'Morning mist on the rails'), P('sun-arms', 'Sunset on the rocks'), P('louvre', 'Louvre pyramid, Paris'), P('lake-dusk', 'Dusk by the water'), P('lake-bw', 'Still water, black and white'), P('leaves', 'Green study'), P('moon-tree', 'Moonlit branches')];
+  var A = [P('sky-gold', 'Golden hour sky'), P('calf', 'Street portrait'), P('rails', 'Morning mist on the rails'), P('lake-dusk', 'Dusk by the water'), P('leaves', 'Green study')];
   var th = function (a) { return 'album/th/' + a.n + '.jpg'; };
   var mos = document.getElementById('mosaic'), lb = document.getElementById('lb'), stg = document.getElementById('lbstage'), cap = document.getElementById('lbcap'), ct = document.getElementById('lbct'), rail = document.getElementById('lbrail');
   if (!mos || !lb) return;
-  var order = [[0, ''], [1, ''], [2, ''], [3, ''], [4, ''], [5, ''], [6, ''], [7, ''], [8, ''], [9, '']];
+  var order = [[0, ''], [1, ''], [2, ''], [3, ''], [4, '']];
   order.forEach(function (o) {
     var a = A[o[0]], b = document.createElement('button'); b.type = 'button'; b.className = o[1]; b.dataset.c = a.c; b.setAttribute('aria-label', 'Open photo: ' + a.c);
     b.innerHTML = '<img src="' + th(a) + '" alt="' + a.c + '" loading="lazy">'; b.addEventListener('click', function () { open(o[0]); }); mos.appendChild(b);
@@ -689,6 +698,34 @@ footer h2 { font-size: clamp(36px, 6vw, 68px); font-weight: 800; letter-spacing:
   stg.addEventListener('pointerup', function (e) { if (x0 === null) return; var d = e.clientX - x0; x0 = null; if (Math.abs(d) > 50) show(cur + (d < 0 ? 1 : -1)); });
 })();
 </script>
+<script>
+(function () {
+  var st = document.getElementById('films-stage'), pin = document.getElementById('films-pin'); if (!st || !pin) return;
+  var rs = [].slice.call(st.querySelectorAll('.reel')), dots = document.getElementById('films-dots'), n = rs.length, act = -1;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function span() { return Math.max(1, pin.offsetHeight - window.innerHeight); }
+  function goTo(i) { var top = pin.getBoundingClientRect().top + window.scrollY; window.scrollTo({ top: top + span() * (i / (n - 1)) + 2, behavior: reduce ? 'auto' : 'smooth' }); }
+  rs.forEach(function (r, i) { var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Film ' + (i + 1)); b.addEventListener('click', function () { goTo(i); }); dots.appendChild(b); r.addEventListener('click', function () { if (i !== act) goTo(i); }); });
+  function render() {
+    var r0 = pin.getBoundingClientRect(), p = reduce ? 0 : Math.max(0, Math.min(1, -r0.top / span())), pos = p * (n - 1);
+    var w = st.querySelector('.rail').offsetWidth, step = window.innerWidth < 861 ? w * 0.62 : Math.min(w * 0.46, 470);
+    var near = Math.round(pos), on = r0.top < window.innerHeight * 0.6 && r0.bottom > window.innerHeight * 0.4;
+    rs.forEach(function (r, i) {
+      var d = i - pos, a = Math.abs(d), sc = Math.max(0.55, 1 - 0.17 * a);
+      r.style.setProperty('--x', (d * step).toFixed(1) + 'px'); r.style.setProperty('--s', sc.toFixed(3));
+      r.style.setProperty('--ry', (-Math.max(-2, Math.min(2, d)) * 14).toFixed(1) + 'deg'); r.style.setProperty('--o', Math.max(0, Math.min(1, 1.35 - 0.45 * a)).toFixed(2));
+      r.style.setProperty('--z', Math.round(20 - a * 4)); r.style.pointerEvents = a > 2.2 ? 'none' : 'auto';
+      var v = r.querySelector('video'), isAct = i === near && on;
+      r.classList.toggle('act', i === near);
+      if (isAct && !reduce) { if (v.paused) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } } else if (!v.paused) { v.pause(); }
+    });
+    act = near; [].slice.call(dots.children).forEach(function (b, i) { b.classList.toggle('on', i === near); });
+  }
+  var tick = false; function onS() { if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; render(); }); } }
+  window.addEventListener('scroll', onS, { passive: true }); window.addEventListener('resize', onS); render();
+})();
+</script>
+
 
 
 </html>
